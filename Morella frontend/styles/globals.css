@@ -1,0 +1,149 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .shadow-\[var\(--shadow-sm\)\] {
+    box-shadow: var(--shadow-sm);
+  }
+  .shadow-\[var\(--shadow-md\)\] {
+    box-shadow: var(--shadow-md);
+  }
+  .shadow-\[var\(--shadow-lg\)\] {
+    box-shadow: var(--shadow-lg);
+  }
+  .shadow-\[var\(--shadow-xl\)\] {
+    box-shadow: var(--shadow-xl);
+  }
+  .hover\:shadow-\[var\(--shadow-md\)\]:hover {
+    box-shadow: var(--shadow-md);
+  }
+}
+
+:root {
+  /* Colors */
+  --color-9: #F4F4F4;
+  --color-10: #FFFFFF;
+  --color-6: #CDD3D8;
+  --color-7: #F3E3BF;
+  --color-1: #000000;
+  --color-2: #0000EE;
+  --color-3: #595E63;
+  --color-4: #E80071;
+  --color-8: #FFE1F1;
+  --color-5: #6F7981;
+
+  /* Semantic color roles */
+  --color-bg: var(--color-9);
+  --color-bg-white: var(--color-10);
+  --color-surface: var(--color-6);
+  --color-surface-warm: var(--color-7);
+  --color-text-primary: var(--color-1);
+  --color-text-link: var(--color-2);
+  --color-text-secondary: var(--color-3);
+  --color-accent: var(--color-4);
+  --color-border: var(--color-8);
+  --color-bg-dark: var(--color-5);
+
+  /* Typography */
+  --font-stack: "Inter", "Source Sans Pro", "Times New Roman", sans-serif;
+
+  /* Text sizes */
+  --text-xs: 12px;
+  --text-sm: 14px;
+  --text-base: 16px;
+  --text-lg: 20px;
+  --text-xl: 24px;
+
+  /* Font weights */
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semi: 600;
+
+  /* Line heights */
+  --leading-none: 0px;
+  --leading-xs: 14px;
+  --leading-sm: 16px;
+  --leading-base: 16.1px;
+  --leading-md: 16.8px;
+  --leading-lg: 18.4px;
+  --leading-xl: 20px;
+  --leading-2xl: 23px;
+  --leading-3xl: 24px;
+  --leading-4xl: 28px;
+  --leading-5xl: 40px;
+  --leading-6xl: 47px;
+  --leading-7xl: 50px;
+  --leading-8xl: 62px;
+
+  /* Spacing (base unit 4px) */
+  --space-1: 2px;
+  --space-2: 4px;
+  --space-3: 8px;
+  --space-4: 10px;
+  --space-5: 11px;
+  --space-6: 12px;
+  --space-7: 13px;
+  --space-8: 14px;
+  --space-9: 15px;
+  --space-10: 16px;
+  --space-11: 20px;
+  --space-12: 24px;
+  --space-13: 48px;
+  --space-14: 192px;
+
+  /* Border radius */
+  --radius-sm: 0px 0px 12px 12px;
+  --radius-md: 2px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+
+  /* Elevation */
+  --shadow-sm: rgba(0, 0, 0, 0.1) 0px 1px 1px 0px;
+  --shadow-md: rgba(0, 0, 0, 0.1) 0px 1px 10px 0px;
+  --shadow-lg: rgba(17, 19, 20, 0.08) 0px 8px 16px -6px, rgba(17, 19, 20, 0.12) 0px 12px 40px -4px;
+  --shadow-xl: rgba(0, 19, 37, 0.48) 0px 8px 32px 0px;
+
+  /* Motion */
+  --duration-fast: all;
+  --duration-none: none;
+  --duration-base: 0.2s cubic-bezier(0, 0, 0.2, 1), transform 0.2s cubic-bezier(0, 0, 0.2, 1), max-width 0.2s cubic-bezier(0, 0, 0.2, 1);
+  --duration-base-opacity: opacity 0.2s;
+  --duration-base-ease: 0.2s ease-in-out;
+  --duration-base-ease-inout: 0.3s ease-in-out;
+  --duration-slow: transform 0.5s;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-stack);
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  line-height: var(--leading-base);
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--color-text-link);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+button {
+  font-family: var(--font-stack);
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
