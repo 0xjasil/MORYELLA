@@ -46,7 +46,7 @@ const topBrands = [
   { name: "Swiss Beauty", discount: "Up To 30% Off" },
   { name: "Mamaearth", discount: "Up To 28% Off" },
   { name: "Himalaya", discount: "Up To 30% Off" },
-  { name: "Nykaa Cosmetics", discount: "Up To 40% Off" },
+  { name: "MORYELLE Cosmetics", discount: "Up To 40% Off" },
 ];
 
 export default function BrandSpotlight() {

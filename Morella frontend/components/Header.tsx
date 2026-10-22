@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 
-const topNav = ["Categories", "Brands", "Luxe", "Nykaa Fashion", "Beauty Advice"];
+const topNav = ["Categories", "Brands", "Luxe", "Moryelle Fashion", "Beauty Advice"];
 const mainCats = ["Makeup", "Skin", "Hair", "Appliances", "Bath & Body", "Natural", "Mom & Baby", "Health & Wellness", "Men", "Fragrance", "Fashion Selects"];
 
 export default function Header() {
@@ -30,8 +30,10 @@ export default function Header() {
       <header className="sticky top-0 z-50 bg-[var(--color-bg-white)] shadow-[var(--shadow-sm)]">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-[var(--space-6)] py-[var(--space-4)]">
           {/* Logo */}
-          <Link href="/" className="flex items-center">
-            <span className="text-2xl font-bold text-[var(--color-accent)] tracking-tight">nykaa</span>
+          <Link href="/" className="flex items-center gap-1.5 group">
+            <span className="text-2xl font-black text-[var(--color-accent)] tracking-wider uppercase font-serif">
+              MORYELLE
+            </span>
           </Link>
 
           {/* Top nav links */}

@@ -8,7 +8,7 @@ const footerSections = [
   },
   {
     title: "Company",
-    links: ["About Us", "Careers", "Press", "Investors", "Sustainability", "Nykaa Blog"],
+    links: ["About Us", "Careers", "Press", "Investors", "Sustainability", "Moryelle Blog"],
   },
   {
     title: "Support",
@@ -16,11 +16,11 @@ const footerSections = [
   },
   {
     title: "Account",
-    links: ["Sign In", "Create Account", "Order History", "Wishlist", "Nykaa Wallet"],
+    links: ["Sign In", "Create Account", "Order History", "Wishlist", "Moryelle Wallet"],
   },
   {
-    title: "Nykaa Stores",
-    links: ["Nykaa Luxe", "Nykaa Fashion", "Nykaa Man", "Nykaa Pro", "Nykaa Global Store"],
+    title: "Moryelle Stores",
+    links: ["Moryelle Luxe", "Moryelle Fashion", "Moryelle Man", "Moryelle Pro", "Moryelle Global Store"],
   },
 ];
 
@@ -33,7 +33,7 @@ export default function Footer() {
           <div className="flex flex-col items-center justify-between gap-[var(--space-6)] md:flex-row">
             <div className="text-center md:text-left">
               <h3 className="text-lg font-semibold text-[var(--color-text-primary)] mb-[var(--space-2)]">
-                Nykaa - The Online Beauty Store
+                MORYELLE - The Online Beauty Store
               </h3>
               <p className="text-sm text-[var(--color-text-secondary)] mb-[var(--space-4)]">
                 Exclusive Offers On App! Get Extra 20% off On Your First App Order
@@ -114,7 +114,7 @@ export default function Footer() {
             </div>
           </div>
           <p className="mt-[var(--space-4)] text-center text-sm text-[var(--color-text-secondary)]">
-            © 2026 Nykaa. All rights reserved.
+            © 2026 MORYELLE. All rights reserved.
           </p>
         </div>
       </div>

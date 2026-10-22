@@ -49,7 +49,7 @@ const morePromos = [
   "Nourish & Glow Everyday Body Care",
   "Hottest Drop! Elle 18 Butter Matte",
   "Up to 10% off On Entire Brand",
-  "Extra 10% Off Only on Nykaa*",
+  "Extra 10% Off Only on MORYELLE*",
   "100% Vegan Hair Ritual",
   "Buy 1, Get 1 On Bestseller",
   "Hyaluron Anti-Ageing Range",
