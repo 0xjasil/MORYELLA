@@ -69,12 +69,13 @@ export default function Header() {
             <button
               className="relative p-[var(--space-2)] text-[var(--color-text-primary)] hover:text-[var(--color-accent)]"
               aria-label="Cart"
+              onClick={() => (window.location.href = "/cart")}
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l2.6 13.2a2 2 0 002 1.6h9.8a2 2 0 002-1.6L21 9M6 6L5.2 3H2" />
               </svg>
               <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-[var(--color-accent)] text-xs text-white">
-                3
+                2
               </span>
             </button>
             <button
