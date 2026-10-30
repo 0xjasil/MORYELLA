@@ -37,8 +37,8 @@ export default function Home() {
         <div className="w-full my-1 sm:my-2">
           <Link href="/category/all" className="block w-full">
             <img
-              src="https://images-static.nykaa.com/uploads/29caf64f-11f1-4e6d-a319-72d5c84cefd7.jpg?tr=w-1200,cm-pad_resize"
-              alt="Moryelle Beauté Exclusive Celebration"
+              src="/banners/top-promo-banner.jpg"
+              alt="Online Shopping New Arrival - Up to 70% Off"
               className="w-full h-auto object-cover"
             />
           </Link>

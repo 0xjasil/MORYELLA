@@ -212,12 +212,10 @@ export default function Header() {
         <div className="bg-mb-bg border-b border-mb-border">
           <div className="mx-auto max-w-content px-4 md:px-6 h-14 flex items-center gap-3">
 
-            {/* Logo — secondary wordmark, 40px mobile / 48px desktop */}
-            <Link href="/" aria-label="MORYELLE — homepage"
-              className="flex-shrink-0 mr-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mb-accent rounded">
-              <span className="text-[20px] md:text-[22px] font-bold text-mb-primary tracking-[0.15em] uppercase leading-none">
-                MORYELLE
-              </span>
+            {/* Logo — brand sheet logo: 40px mobile / 44px desktop */}
+            <Link href="/" aria-label="Moryelle Beauté — homepage"
+              className="flex-shrink-0 mr-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mb-accent rounded flex items-center">
+              <BrandLogo variant="secondary" className="h-9 md:h-11 w-auto min-w-[120px] max-w-[180px]" />
             </Link>
 
             {/* Primary nav — [Categories, Brands, Luxe, Fashion, Beauty Advice] */}

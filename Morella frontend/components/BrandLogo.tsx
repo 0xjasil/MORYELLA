@@ -3,6 +3,7 @@ import React from "react";
 const SRC = {
   primary: "/brand/logo-primary.png",
   secondary: "/brand/logo-secondary.png",
+  horizontal: "/brand/logo-horizontal.png",
   emblem: "/brand/logo-emblem.png",
   gold: "/brand/logo-gold.png",
 } as const;
