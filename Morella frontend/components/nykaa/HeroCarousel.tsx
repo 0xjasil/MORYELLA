@@ -3,49 +3,49 @@ import Link from "next/link";
 
 export const heroData = [
   {
-    img: "https://images-static.nykaa.com/creatives/492fd8de-0d6c-4102-bdf1-8d64353ade88/default.png?tr=w-400,cm-pad_resize",
+    img: "/hero/card-1.jpg",
     offer: "Up To 50% Off",
     description: "Festive Grandeur Collection",
     link: "/category/makeup"
   },
   {
-    img: "https://images-static.nykaa.com/creatives/55a85f63-b44e-434e-83d8-50e96fc1d6d1/default.jpg?tr=w-400,cm-pad_resize",
+    img: "/hero/card-2.jpg",
     offer: "Signature Radiance Rituals",
     description: "Discover Skincare",
     link: "/category/skincare"
   },
   {
-    img: "https://images-static.nykaa.com/creatives/b2279e38-3621-481a-842f-a26b082e5871/default.jpg?tr=w-400,cm-pad_resize",
+    img: "/hero/card-3.jpg",
     offer: "Min 40% Off",
     description: "Iconic Bestsellers",
-    link: "/category/all"
+    link: "/category/luxe"
   },
   {
-    img: "https://images-static.nykaa.com/creatives/0e7ff908-c829-4142-a890-451d95e95c7b/default.jpg?tr=w-400,cm-pad_resize",
+    img: "/hero/card-4.jpg",
     offer: "Buy 2 Get 1 Complimentary",
     description: "Botanical Hair Elixirs",
     link: "/category/hair"
   },
   {
-    img: "https://images-static.nykaa.com/creatives/d01fbdc7-6f2a-4911-a42b-4b4a541f0007/default.jpg?tr=w-400,cm-pad_resize",
+    img: "/hero/card-5.jpg",
     offer: "Up To 35% Off",
     description: "Curated Luxury Duos",
-    link: "/category/all"
+    link: "/category/wellness"
   },
   {
-    img: "https://images-static.nykaa.com/creatives/aafc1871-8ad4-461f-8e61-5ec950351fe2/default.jpg?tr=w-400,cm-pad_resize",
+    img: "/hero/card-6.jpg",
     offer: "25% Off Bond Repair",
     description: "Restorative Rituals",
-    link: "/category/skincare"
+    link: "/category/bath-body"
   },
   {
-    img: "https://images-static.nykaa.com/creatives/a8435015-fb2f-4538-89bd-0481b631fc5b/default.jpg?tr=w-400,cm-pad_resize",
+    img: "/hero/card-7.jpg",
     offer: "Up To 35% Off",
     description: "High-Pigment Lip Couture",
     link: "/category/makeup"
   },
   {
-    img: "https://images-static.nykaa.com/creatives/095d470d-08c5-4489-8463-b830948d516d/default.jpg?tr=w-400,cm-pad_resize",
+    img: "/hero/card-8.jpg",
     offer: "Haute Parfumerie",
     description: "Signature Olfactory Notes",
     link: "/category/fragrance"

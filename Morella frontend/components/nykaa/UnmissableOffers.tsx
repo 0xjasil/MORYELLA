@@ -3,29 +3,29 @@ import Link from "next/link";
 
 const offers = [
   {
-    img: "https://images-static.nykaa.com/uploads/e138e73c-e964-44f5-ba9c-88adfa51c0a0.jpg?tr=w-400,cm-pad_resize",
-    title: "Unmissable Offer 1",
+    img: "/hero/card-1.jpg",
+    title: "Festive Grandeur Collection",
     link: "/category/makeup"
   },
   {
-    img: "https://images-static.nykaa.com/uploads/9eb2f112-c650-4f0d-9cac-68a6f43f3091.jpg?tr=w-400,cm-pad_resize",
-    title: "Unmissable Offer 2",
+    img: "/hero/card-2.jpg",
+    title: "Signature Radiance Rituals",
     link: "/category/skincare"
   },
   {
-    img: "https://images-static.nykaa.com/uploads/5a7cf3ca-1816-4f0a-a3e1-5dfc9cfebdc6.jpg?tr=w-400,cm-pad_resize",
-    title: "Unmissable Offer 3",
+    img: "/hero/card-3.jpg",
+    title: "Iconic Bestsellers",
+    link: "/category/luxe"
+  },
+  {
+    img: "/hero/card-4.jpg",
+    title: "Botanical Hair Elixirs",
     link: "/category/hair"
   },
   {
-    img: "https://images-static.nykaa.com/uploads/85224f74-0ff4-41f3-b8b6-ef9e802c82c1.jpg?tr=w-400,cm-pad_resize",
-    title: "Unmissable Offer 4",
-    link: "/category/fragrance"
-  },
-  {
-    img: "https://images-static.nykaa.com/uploads/dfd4d3d7-1567-4e8c-9203-4bd7b1b112ab.jpg?tr=w-400,cm-pad_resize",
-    title: "Unmissable Offer 5",
-    link: "/category/all"
+    img: "/hero/card-5.jpg",
+    title: "Curated Luxury Duos",
+    link: "/category/wellness"
   }
 ];
 

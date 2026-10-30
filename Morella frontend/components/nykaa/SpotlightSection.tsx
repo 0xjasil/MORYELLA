@@ -3,37 +3,37 @@ import Link from "next/link";
 
 const spotlightItems = [
   {
-    img: "https://images-static.nykaa.com/uploads/b03f2a8c-2569-4e97-82e7-bd4c52225c17.jpg?tr=w-150,cm-pad_resize",
+    img: "/categories/fragrance.jpg",
     name: "Aromatherapy Candles",
     link: "/category/fragrance"
   },
   {
-    img: "https://images-static.nykaa.com/uploads/7f30da73-e647-412c-90b9-8e57c539a1dc.jpg?tr=w-150,cm-pad_resize",
+    img: "/categories/fragrance.jpg",
     name: "Body Mists",
     link: "/category/fragrance"
   },
   {
-    img: "https://images-static.nykaa.com/uploads/3599bb63-aa8c-4d7d-9684-6ee186fdca1d.jpg?tr=w-150,cm-pad_resize",
+    img: "/categories/skincare.jpg",
     name: "Essential Oils",
     link: "/category/skincare"
   },
   {
-    img: "https://images-static.nykaa.com/uploads/1c0744ef-f265-41a4-814b-14c1dd5c1741.jpg?tr=w-150,cm-pad_resize",
+    img: "/categories/bath-body.jpg",
     name: "Botanical Bath Salts",
     link: "/category/bath-body"
   },
   {
-    img: "https://images-static.nykaa.com/uploads/9d3c7e7d-56f0-4c50-a45b-00d2d2ba77dc.jpg?tr=w-150,cm-pad_resize",
+    img: "/categories/bath-body.jpg",
     name: "Massage Oils",
     link: "/category/bath-body"
   },
   {
-    img: "https://images-static.nykaa.com/uploads/cd72bae9-630d-4ef1-a6c6-51b5b47cef54.jpg?tr=w-150,cm-pad_resize",
+    img: "/categories/skincare.jpg",
     name: "Exfoliating Scrubs",
     link: "/category/skincare"
   },
   {
-    img: "https://images-static.nykaa.com/uploads/60c8a181-a669-4988-b9f8-fa59540119c6.jpg?tr=w-150,cm-pad_resize",
+    img: "/categories/bath-body.jpg",
     name: "Foot Care Rituals",
     link: "/category/bath-body"
   }
@@ -55,9 +55,9 @@ export default function SpotlightSection() {
       <div className="relative overflow-hidden rounded-[14px] shadow-card mb-6 group border border-mb-border">
         <Link href="/category/bath-body" className="block">
           <img
-            src="https://images-static.nykaa.com/uploads/da2f92c4-5065-4b0c-889b-9d66e9b9a870.jpg?tr=w-1200,cm-pad_resize"
+            src="/banners/timeless-beauty-banner.jpg"
             alt="In The Spotlight Self-Care"
-            className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-[1.01]"
+            className="w-full h-36 sm:h-48 md:h-56 object-cover object-center transition-transform duration-500 group-hover:scale-[1.01]"
           />
           <div className="absolute bottom-4 left-4 bg-mb-primary/95 text-mb-bg px-5 py-3 rounded-[10px] shadow-card border border-mb-primary-hover">
             <p className="font-serif text-lg sm:text-xl font-bold leading-tight text-mb-bg">Up To 30% Off</p>

@@ -1,41 +1,41 @@
 export const category=[
   {
-    "img": "https://images-static.nykaa.com/uploads/1216b52d-9ce4-4509-a477-d91befba4df1.jpg?tr=w-150,cm-pad_resize",
+    "img": "/categories/makeup.jpg",
     "offer": "Makeup"
   },
   {
-    "img": "https://images-static.nykaa.com/uploads/8b0cbc2d-e429-4544-a497-649dc18dddda.jpg?tr=w-150,cm-pad_resize",
+    "img": "/categories/skincare.jpg",
     "offer": "Skincare"
   },
   {
-    "img": "https://images-static.nykaa.com/uploads/8b9aee6b-eac3-4b75-9ca3-0b2db94604ea.jpg?tr=w-150,cm-pad_resize",
+    "img": "/categories/hair.jpg",
     "offer": "Hair"
   },
   {
-    "img": "https://images-static.nykaa.com/uploads/7d56864e-f60c-40f6-b774-b70f7023c709.jpg?tr=w-150,cm-pad_resize",
+    "img": "/categories/bath-body.jpg",
     "offer": "Bath & Body"
   },
   {
-    "img": "https://images-static.nykaa.com/uploads/a04697ab-5aa1-4d3d-9cde-da35baa244ca.jpg?tr=w-150,cm-pad_resize",
+    "img": "/categories/fragrance.jpg",
     "offer": "Fragrance"
   },
   {
-    "img": "https://images-static.nykaa.com/uploads/dad4155c-774c-4eed-835a-55a88f3b6676.jpg?tr=w-150,cm-pad_resize",
+    "img": "/categories/luxe.jpg",
     "offer": "Luxe"
   },
   {
-    "img": "https://images-static.nykaa.com/uploads/bf3bc862-fcc6-49e9-a7c4-02fa5cfffa51.jpg?tr=w-150,cm-pad_resize",
+    "img": "/categories/wellness.jpg",
     "offer": "Wellness"
   },
   {
-    "img": "https://images-static.nykaa.com/uploads/b4e1ca2f-f0d5-4c7d-b62c-d6ac47b2fa6d.jpg?tr=w-150,cm-pad_resize",
+    "img": "/categories/appliances.jpg",
     "offer": "Appliances"
   }
 ]
 export const topBrands=[
     {
-        img:"https://images-static.nykaa.com/creatives/9188840e-a5da-4599-8d29-1c479bfa8c2f/default.jpg?tr=w-400,cm-pad_resize",
-        name:"Nykaa",
+        img:"/brand/logo-primary.png",
+        name:"Moryelle Beauté",
         offer:"Upto 35% Off"
         ,description:"Free Lipstick on ₹799"
     },  {
@@ -77,7 +77,7 @@ export const topBrands=[
 export const justDropped=[
     {
       "custom-tag": "FEATURED",
-      "href": "https://www.nykaa.com/maybelline-volum-express-hyper-curl-mascara/p/809?productId=809&skuId=808&pps=1",
+      "href": "/category/all",
       "img": "https://images-static.nykaa.com/media/catalog/product/tr:w-220,h-220,cm-pad_resize/e/8/e8524d069234925874430_1.jpg",
       "name": "Maybelline New York Volum Express Hyper Curl Mascara - Washa...",
       "price": "₹322",
@@ -88,7 +88,7 @@ export const justDropped=[
     },
     {
       "custom-tag": "FEATURED",
-      "href": "https://www.nykaa.com/m-a-c-studio-fix-fluid-spf-15/p/88999?productId=88999&pps=2",
+      "href": "/category/all",
       "img": "https://images-static.nykaa.com/media/catalog/product/tr:w-220,h-220,cm-pad_resize/c/9/c9e05ed773602103485_1.jpg",
       "name": "M.A.C Studio Fix Fluid SPF 15",
       "price": "₹3600",
@@ -99,7 +99,7 @@ export const justDropped=[
     },
     {
       "custom-tag": "FEATURED",
-      "href": "https://www.nykaa.com/aqualogica-glow-dewy-sunscreen-with-papaya-vitamin-c/p/10593377?productId=10593377&skuId=5009759&pps=3",
+      "href": "/category/all",
       "img": "https://images-static.nykaa.com/media/catalog/product/tr:w-220,h-220,cm-pad_resize/5/4/5440bc8AQUAA00000021_1.jpg",
       "name": "Aqualogica Glow+ Dewy Sunscreen with Papaya & Vitamin C - SP...",
       "price": "₹343",
@@ -110,7 +110,7 @@ export const justDropped=[
     },
     {
       "custom-tag": "FEATURED",
-      "href": "https://www.nykaa.com/sugar-contour-de-force-face-palette/p/244239?productId=244239&pps=4",
+      "href": "/category/all",
       "img": "https://images-static.nykaa.com/media/catalog/product/tr:w-220,h-220,cm-pad_resize/1/9/19b50528906090492256_01.jpg",
       "name": "SUGAR Contour De Force Face Palette",
       "price": "₹695",
@@ -121,7 +121,7 @@ export const justDropped=[
     },
     {
       "custom-tag": "FEATURED",
-      "href": "https://www.nykaa.com/l-oreal-paris-revitalift-1-5-hyaluronic-acid-serum/p/1112060?productId=1112060&skuId=1112054&pps=5",
+      "href": "/category/all",
       "img": "https://images-static.nykaa.com/media/catalog/product/tr:w-220,h-220,cm-pad_resize/f/5/f59482cLOREA00000003_1.jpg",
       "name": "L'Oreal Paris Revitalift Hydrating Serum With 1.5 % Hyaluron...",
       "price": "₹424",
@@ -132,7 +132,7 @@ export const justDropped=[
     },
     {
       "custom-tag": "FEATURED",
-      "href": "https://www.nykaa.com/l-oreal-professionnel-x-tenso-care-shampoo/p/10500?productId=10500&pps=6",
+      "href": "/category/all",
       "img": "https://images-static.nykaa.com/media/catalog/product/tr:w-220,h-220,cm-pad_resize/f/8/f85bae18901526403868_z1.jpg",
       "name": "L'Oreal Professionnel X-Tenso Care Shampoo For Smooth, Manag...",
       "price": "₹650",
@@ -143,7 +143,7 @@ export const justDropped=[
     },
     {
       "custom-tag": "FEATURED",
-      "href": "https://www.nykaa.com/nykaa-cosmetics-all-day-matte-waterproof-transfer-proof-mask-proof-12h-liquid-lipstick/p/2790711?productId=2790711&pps=7",
+      "href": "/category/all",
       "img": "https://images-static.nykaa.com/media/catalog/product/tr:w-220,h-220,cm-pad_resize/0/0/0053420NYKAC00000072_1new.jpg",
       "name": "Nykaa Cosmetics All Day Matte Waterproof, Transfer Proof, 12...",
       "price": "₹239",
@@ -154,7 +154,7 @@ export const justDropped=[
     },
     {
       "custom-tag": "FEATURED",
-      "href": "https://www.nykaa.com/lakme-absolute-primer/p/12910650?productId=12910650&skuId=44942&pps=8",
+      "href": "/category/all",
       "img": "https://images-static.nykaa.com/media/catalog/product/tr:w-220,h-220,cm-pad_resize/2/8/2807eca23657_H_8901030824999.jpg",
       "name": "Lakme Absolute Blur Perfect Makeup Primer",
       "price": "₹495",
@@ -165,7 +165,7 @@ export const justDropped=[
     },
     {
       "custom-tag": "FEATURED",
-      "href": "https://www.nykaa.com/wella-professionals-elements-renewing-shampoo/p/70562?productId=70562&pps=9",
+      "href": "/category/all",
       "img": "https://images-static.nykaa.com/media/catalog/product/tr:w-220,h-220,cm-pad_resize/c/4/c4489004064666036267_1.jpg",
       "name": "Wella Professionals Elements Renewing Shampoo (Zero Sulfates...",
       "price": "₹1035",
@@ -176,7 +176,7 @@ export const justDropped=[
     },
     {
       "custom-tag": "FEATURED",
-      "href": "https://www.nykaa.com/mamaearth-onion-hair-mask-for-dry-frizzy-hair-200ml/p/513089?productId=513089&pps=10",
+      "href": "/category/all",
       "img": "https://images-static.nykaa.com/media/catalog/product/tr:w-220,h-220,cm-pad_resize/e/d/edbb16c8906087771685.jpg",
       "name": "Mamaearth Onion Hair Mask For Hair Fall Control",
       "price": "₹527",
@@ -187,7 +187,7 @@ export const justDropped=[
     },
     {
       "custom-tag": "FEATURED",
-      "href": "https://www.nykaa.com/minimalist-spf-60-pa-face-sunscreen-with-antioxidant-silymarin-for-complete-sun-protection/p/2812175?productId=2812175&pps=11",
+      "href": "/category/all",
       "img": "https://images-static.nykaa.com/media/catalog/product/tr:w-220,h-220,cm-pad_resize/1/8/18d33a4MINIM00000028_1509231.jpg",
       "name": "Minimalist SPF 60 PA ++++ Sunscreen With Antioxidant Silymar...",
       "price": "₹569",
@@ -198,7 +198,7 @@ export const justDropped=[
     },
     {
       "custom-tag": "FEATURED",
-      "href": "https://www.nykaa.com/plum-bodylovin-vanilla-vibes-body-oil/p/10357956?productId=10357956&skuId=5020970&pps=12",
+      "href": "/category/all",
       "img": "https://images-static.nykaa.com/media/catalog/product/tr:w-220,h-220,cm-pad_resize/a/b/abe301bPLUMX00000283_01.jpg",
       "name": "Plum Bodylovin' Vanilla Vibes Body Oil",
       "price": "₹239",
@@ -209,7 +209,7 @@ export const justDropped=[
     },
     {
       "custom-tag": "FEATURED",
-      "href": "https://www.nykaa.com/kiehl-s-creamy-eye-treatment-with-avocado/p/26492?productId=26492&pps=13",
+      "href": "/category/all",
       "img": "https://images-static.nykaa.com/media/catalog/product/tr:w-220,h-220,cm-pad_resize/e/5/e5d865e3700194714413_1.jpg",
       "name": "Kiehl's Creamy Eye Treatment With Avocado, Shea Butter & Bet...",
       "price": "₹2650",
@@ -220,7 +220,7 @@ export const justDropped=[
     },
     {
       "custom-tag": "FEATURED",
-      "href": "https://www.nykaa.com/tonymoly-i-m-mask-sheet/p/464329?productId=464329&pps=14",
+      "href": "/category/all",
       "img": "https://images-static.nykaa.com/media/catalog/product/tr:w-220,h-220,cm-pad_resize/c/b/cb20ea48806194022857_1.jpg",
       "name": "TONYMOLY I'M Mask Sheet",
       "price": "₹100",
@@ -231,7 +231,7 @@ export const justDropped=[
     },
     {
       "custom-tag": "",
-      "href": "https://www.nykaa.com/cetaphil-cleansing-lotion/p/22032?productId=22032&pps=15",
+      "href": "/category/all",
       "img": "https://images-static.nykaa.com/media/catalog/product/tr:w-220,h-220,cm-pad_resize/1/8/18d33a4NYCETA0000010_1509231.jpg",
       "name": "Cetaphil Gentle Skin Cleanser",
       "price": "₹276",
@@ -242,7 +242,7 @@ export const justDropped=[
     },
     {
       "custom-tag": "",
-      "href": "https://www.nykaa.com/cosrx-advanced-snail-96-mucin-power-essence/p/757628?productId=757628&pps=16",
+      "href": "/category/all",
       "img": "https://images-static.nykaa.com/media/catalog/product/tr:w-220,h-220,cm-pad_resize/a/8/a8468fe8809416470009_1n.jpg",
       "name": "COSRX Advanced Snail 96 Mucin Power Essence",
       "price": "₹1233",
@@ -253,7 +253,7 @@ export const justDropped=[
     },
     {
       "custom-tag": "",
-      "href": "https://www.nykaa.com/nykaa-skin-secrets-sheet-mask/p/418274?productId=418274&pps=17",
+      "href": "/category/all",
       "img": "https://images-static.nykaa.com/media/catalog/product/tr:w-220,h-220,cm-pad_resize/3/8/389e50f8904245712280_1.jpg",
       "name": "Nykaa Naturals Skin Secrets Exotic Indulgence Sheet Mask",
       "price": "₹80",
@@ -264,7 +264,7 @@ export const justDropped=[
     },
     {
       "custom-tag": "",
-      "href": "https://www.nykaa.com/the-ordinary-niacinamide-10percent-zinc-1percent/p/5003164?productId=5003164&pps=18",
+      "href": "/category/all",
       "img": "https://images-static.nykaa.com/media/catalog/product/tr:w-220,h-220,cm-pad_resize/2/2/226647aTHECI00000026.jpg",
       "name": "The Ordinary Niacinamide 10% + Zinc 1%",
       "price": "₹550",

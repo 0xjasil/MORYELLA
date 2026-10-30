@@ -4,7 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 
-// NykaaClone Components
+
 import HeroCarousel from "@/components/nykaa/HeroCarousel";
 import DiscoverCategories from "@/components/nykaa/DiscoverCategories";
 import OfferGifsCarousel from "@/components/nykaa/OfferGifsCarousel";
@@ -34,12 +34,12 @@ export default function Home() {
 
       <main id="main-content" className="min-h-screen bg-mb-bg w-full overflow-x-hidden">
         {/* 2. Editorial Top Banner Strip */}
-        <div className="w-full my-1 sm:my-2">
+        <div className="w-full my-1 sm:my-2 overflow-hidden">
           <Link href="/category/all" className="block w-full">
             <img
               src="/banners/top-promo-banner.jpg"
               alt="Online Shopping New Arrival - Up to 70% Off"
-              className="w-full h-auto object-cover"
+              className="w-full h-36 sm:h-48 md:h-60 lg:h-72 object-cover object-center"
             />
           </Link>
         </div>
@@ -51,12 +51,12 @@ export default function Home() {
         <DiscoverCategories />
 
         {/* 5. Category Highlights Banner */}
-        <div className="w-full my-4">
+        <div className="w-full my-4 overflow-hidden">
           <Link href="/category/all" className="block w-full">
             <img
-              src="https://images-static.nykaa.com/uploads/092bdb7d-86a1-45b1-a77e-6c43559a47c4.jpg?tr=w-1200,cm-pad_resize"
-              alt="Trending Category Highlights"
-              className="w-full h-auto object-cover"
+              src="/banners/category-highlights-banner.jpg"
+              alt="Curated Category Highlights — Moryelle Beauté"
+              className="w-full h-24 sm:h-32 md:h-40 lg:h-48 object-cover object-center"
             />
           </Link>
         </div>
@@ -83,12 +83,12 @@ export default function Home() {
         <RadarSection />
 
         {/* 13. Bottom Feature Banner */}
-        <div className="w-full my-8">
+        <div className="w-full my-8 overflow-hidden">
           <Link href="/category/all" className="block w-full">
             <img
-              src="https://images-static.nykaa.com/uploads/49e43a50-37b5-405a-be2d-ab90055115ec.jpg?tr=w-1200,cm-pad_resize"
-              alt="Moryelle Beauté Online Destination"
-              className="w-full h-auto object-cover"
+              src="/banners/timeless-beauty-banner.jpg"
+              alt="Moryelle Beauté — Beauty Beyond Today"
+              className="w-full h-36 sm:h-48 md:h-60 lg:h-72 object-cover object-center"
             />
           </Link>
         </div>

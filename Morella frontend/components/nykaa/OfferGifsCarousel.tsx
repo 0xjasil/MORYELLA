@@ -3,27 +3,27 @@ import Link from "next/link";
 
 const gifBanners = [
   {
-    img: "https://images-static.nykaa.com/uploads/9d7e5225-1f74-4220-8f45-9ef336b77dae.gif?tr=w-300,cm-pad_resize",
+    img: "/hero/card-1.jpg",
     title: "Trending Drops",
     link: "/category/makeup"
   },
   {
-    img: "https://images-static.nykaa.com/uploads/456cce4d-0eda-4b5d-b90a-9d20bccb63a6.gif?tr=w-300,cm-pad_resize",
+    img: "/hero/card-2.jpg",
     title: "Special Combos",
     link: "/category/skincare"
   },
   {
-    img: "https://images-static.nykaa.com/uploads/a23c60bf-0e28-4f45-8e06-3441cc1c734d.gif?tr=w-300,cm-pad_resize",
+    img: "/hero/card-3.jpg",
     title: "Best In Beauty",
+    link: "/category/luxe"
+  },
+  {
+    img: "/hero/card-4.jpg",
+    title: "Must Haves",
     link: "/category/hair"
   },
   {
-    img: "https://images-static.nykaa.com/uploads/007f3c83-203e-4c6f-a422-3502d2c51d2a.gif?tr=w-300,cm-pad_resize",
-    title: "Must Haves",
-    link: "/category/all"
-  },
-  {
-    img: "https://images-static.nykaa.com/uploads/7111fd2e-8acf-4a2d-b988-0ba6a78399a7.jpg?tr=w-300,cm-pad_resize",
+    img: "/hero/card-8.jpg",
     title: "Festive Glam",
     link: "/category/fragrance"
   }
