@@ -1,21 +1,15 @@
 import React from "react";
 import Link from "next/link";
-
-const radarItems = [
-  { img: "/brand/logo-primary.png", offer: "Upto 20% Off", description: "On Entire Range" },
-  { img: "/brand/logo-secondary.png", offer: "Upto 40% Off", description: "On Bestsellers" },
-  { img: "/brand/logo-gold.png", offer: "Flat 10% Off +", description: "B5G5 On Sheet Masks" },
-  { img: "/brand/logo-emblem.png", offer: "Upto 30% Off", description: "On Entire Range", link: "/category/all" },
-  { img: "/brand/logo-primary.png", offer: "Flat 5% Off", description: "On Entire Range" },
-  { img: "/brand/logo-secondary.png", offer: "Up To 40% Off", description: "On Entire Range" },
-  { img: "/brand/logo-gold.png", offer: "Drench the Lip", description: "in Sheer Hydration!" },
-  { img: "/brand/logo-emblem.png", offer: "Upto 30% Off", description: "On Entire Range!" },
-  { img: "/brand/logo-primary.png", offer: "Award Winning", description: "Root Treatment Oil!" },
-  { img: "/brand/logo-secondary.png", offer: "On ₹3000:", description: "Complexion Stick" },
-];
+// @ts-ignore
+import { radar } from "@/data/TopBrands";
 
 export default function RadarSection() {
-  const items = radarItems;
+  const items = (radar || []) as Array<{
+    img: string;
+    offer: string;
+    description: string;
+    link?: string;
+  }>;
 
   return (
     <section className="w-full px-3 sm:px-6 my-8" aria-label="On Our Radar">

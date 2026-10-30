@@ -43,7 +43,7 @@ export default function Footer() {
       <div className="border-b border-mb-primary-hover/60 py-8 px-4">
         <div className="mx-auto max-w-content flex flex-col items-center justify-center text-center">
           <Link href="/" aria-label="Moryelle Beauté" className="inline-block mb-3">
-            <BrandLogo variant="secondary" className="h-10 md:h-12 w-auto min-w-[96px]" />
+            <BrandLogo variant="gold" className="h-14 md:h-16 w-auto min-w-[96px] max-w-[200px]" />
           </Link>
           <p className="text-xs md:text-sm font-light text-mb-gold uppercase tracking-[0.3em]">
             Beauty Beyond Today

@@ -2,11 +2,31 @@ import React, { useRef } from "react";
 import Link from "next/link";
 
 const offers = [
-  { img: "/brand/logo-primary.png", title: "Unmissable Offer 1", link: "/category/makeup" },
-  { img: "/brand/logo-secondary.png", title: "Unmissable Offer 2", link: "/category/skincare" },
-  { img: "/brand/logo-gold.png", title: "Unmissable Offer 3", link: "/category/hair" },
-  { img: "/brand/logo-emblem.png", title: "Unmissable Offer 4", link: "/category/fragrance" },
-  { img: "/brand/logo-primary.png", title: "Unmissable Offer 5", link: "/category/all" },
+  {
+    img: "https://images-static.nykaa.com/uploads/e138e73c-e964-44f5-ba9c-88adfa51c0a0.jpg?tr=w-400,cm-pad_resize",
+    title: "Unmissable Offer 1",
+    link: "/category/makeup"
+  },
+  {
+    img: "https://images-static.nykaa.com/uploads/9eb2f112-c650-4f0d-9cac-68a6f43f3091.jpg?tr=w-400,cm-pad_resize",
+    title: "Unmissable Offer 2",
+    link: "/category/skincare"
+  },
+  {
+    img: "https://images-static.nykaa.com/uploads/5a7cf3ca-1816-4f0a-a3e1-5dfc9cfebdc6.jpg?tr=w-400,cm-pad_resize",
+    title: "Unmissable Offer 3",
+    link: "/category/hair"
+  },
+  {
+    img: "https://images-static.nykaa.com/uploads/85224f74-0ff4-41f3-b8b6-ef9e802c82c1.jpg?tr=w-400,cm-pad_resize",
+    title: "Unmissable Offer 4",
+    link: "/category/fragrance"
+  },
+  {
+    img: "https://images-static.nykaa.com/uploads/dfd4d3d7-1567-4e8c-9203-4bd7b1b112ab.jpg?tr=w-400,cm-pad_resize",
+    title: "Unmissable Offer 5",
+    link: "/category/all"
+  }
 ];
 
 export default function UnmissableOffers() {

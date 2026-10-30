@@ -35,23 +35,12 @@ export default function Home() {
       <main id="main-content" className="min-h-screen bg-mb-bg w-full overflow-x-hidden">
         {/* 2. Editorial Top Banner Strip */}
         <div className="w-full my-1 sm:my-2">
-          <Link
-            href="/category/all"
-            className="block w-full bg-gradient-to-r from-mb-primary via-mb-accent-deep to-mb-primary text-mb-bg py-3 px-4 shadow-sm border-y border-mb-border hover:opacity-95 transition-opacity"
-          >
-            <div className="max-w-content mx-auto flex items-center justify-center gap-3 sm:gap-6 text-center text-xs sm:text-sm font-medium tracking-wider uppercase">
-              <span className="text-mb-gold font-serif font-bold text-sm sm:text-base tracking-widest">
-                MORYELLE BEAUTÉ
-              </span>
-              <span className="hidden sm:inline text-mb-gold/60">•</span>
-              <span className="font-semibold text-mb-bg">
-                SALE IS LIVE! COMPLIMENTARY SHIPPING &amp; COUTURE GIFT ON ALL ORDERS ABOVE ₹499
-              </span>
-              <span className="hidden md:inline text-mb-gold/60">•</span>
-              <span className="hidden md:inline-flex items-center text-xs px-2.5 py-0.5 rounded-full border border-mb-gold text-mb-gold">
-                EXPLORE NOW →
-              </span>
-            </div>
+          <Link href="/category/all" className="block w-full">
+            <img
+              src="https://images-static.nykaa.com/uploads/29caf64f-11f1-4e6d-a319-72d5c84cefd7.jpg?tr=w-1200,cm-pad_resize"
+              alt="Moryelle Beauté Exclusive Celebration"
+              className="w-full h-auto object-cover"
+            />
           </Link>
         </div>
 
@@ -65,7 +54,7 @@ export default function Home() {
         <div className="w-full my-4">
           <Link href="/category/all" className="block w-full">
             <img
-              src="/brand/logo-primary.png"
+              src="https://images-static.nykaa.com/uploads/092bdb7d-86a1-45b1-a77e-6c43559a47c4.jpg?tr=w-1200,cm-pad_resize"
               alt="Trending Category Highlights"
               className="w-full h-auto object-cover"
             />
@@ -97,7 +86,7 @@ export default function Home() {
         <div className="w-full my-8">
           <Link href="/category/all" className="block w-full">
             <img
-              src="/brand/logo-gold.png"
+              src="https://images-static.nykaa.com/uploads/49e43a50-37b5-405a-be2d-ab90055115ec.jpg?tr=w-1200,cm-pad_resize"
               alt="Moryelle Beauté Online Destination"
               className="w-full h-auto object-cover"
             />

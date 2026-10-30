@@ -1,9 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
 // @ts-ignore
 import { topBrands } from "@/data/TopBrands";
-
-const SHOW_AT_ONCE = 4;
 
 export default function TopBrandsSection() {
   const brands = (topBrands || []) as Array<{
@@ -13,14 +11,6 @@ export default function TopBrandsSection() {
     description: string;
   }>;
 
-  const [visibleCount, setVisibleCount] = useState(SHOW_AT_ONCE);
-  const visibleBrands = brands.slice(0, visibleCount);
-  const hasMore = visibleCount < brands.length;
-
-  const handleShowMore = () => {
-    setVisibleCount((prev) => Math.min(prev + SHOW_AT_ONCE, brands.length));
-  };
-
   return (
     <section className="w-full px-3 sm:px-6 my-8" aria-label="Explore Our Top Brands">
       <h2 className="font-serif text-2xl sm:text-3xl font-semibold text-mb-text mb-6 text-left">
@@ -28,7 +18,7 @@ export default function TopBrandsSection() {
       </h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {visibleBrands.map((brand, i) => (
+        {brands.map((brand, i) => (
           <Link
             key={i}
             href={`/category/${brand.name.toLowerCase().replace(/\s+/g, "-")}`}
@@ -57,21 +47,6 @@ export default function TopBrandsSection() {
           </Link>
         ))}
       </div>
-
-      {hasMore && (
-        <div className="mt-6 text-center">
-          <button
-            type="button"
-            onClick={handleShowMore}
-            className="inline-flex items-center gap-2 bg-mb-primary text-mb-bg text-sm font-semibold px-6 py-2.5 rounded-md hover:opacity-90 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mb-accent"
-          >
-            Show More Brands
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <polyline points="6 9 12 15 18 9" />
-            </svg>
-          </button>
-        </div>
-      )}
     </section>
   );
 }

@@ -3,47 +3,47 @@ import Link from "next/link";
 
 export const heroData = [
   {
-    img: "/brand/logo-primary.png",
+    img: "https://images-static.nykaa.com/creatives/90b13d57-9dc2-4180-87e7-08a77b94208c/default.jpg?tr=w-400,cm-pad_resize",
     offer: "Up To 50% Off",
     description: "Festive Grandeur Collection",
-    link: "/category/makeup",
+    link: "/category/makeup"
   },
   {
-    img: "/brand/logo-secondary.png",
+    img: "https://images-static.nykaa.com/creatives/55a85f63-b44e-434e-83d8-50e96fc1d6d1/default.jpg?tr=w-400,cm-pad_resize",
     offer: "Signature Radiance Rituals",
     description: "Discover Skincare",
-    link: "/category/skincare",
+    link: "/category/skincare"
   },
   {
-    img: "/brand/logo-gold.png",
+    img: "https://images-static.nykaa.com/creatives/b2279e38-3621-481a-842f-a26b082e5871/default.jpg?tr=w-400,cm-pad_resize",
     offer: "Min 40% Off",
     description: "Iconic Bestsellers",
-    link: "/category/all",
+    link: "/category/all"
   },
   {
-    img: "/brand/logo-emblem.png",
+    img: "https://images-static.nykaa.com/creatives/0e7ff908-c829-4142-a890-451d95e95c7b/default.jpg?tr=w-400,cm-pad_resize",
     offer: "Buy 2 Get 1 Complimentary",
     description: "Botanical Hair Elixirs",
-    link: "/category/hair",
+    link: "/category/hair"
   },
   {
-    img: "/brand/logo-primary.png",
+    img: "https://images-static.nykaa.com/creatives/d01fbdc7-6f2a-4911-a42b-4b4a541f0007/default.jpg?tr=w-400,cm-pad_resize",
     offer: "Up To 35% Off",
     description: "Curated Luxury Duos",
-    link: "/category/all",
+    link: "/category/all"
   },
   {
-    img: "/brand/logo-secondary.png",
+    img: "https://images-static.nykaa.com/creatives/aafc1871-8ad4-461f-8e61-5ec950351fe2/default.jpg?tr=w-400,cm-pad_resize",
     offer: "25% Off Bond Repair",
     description: "Restorative Rituals",
-    link: "/category/skincare",
+    link: "/category/skincare"
   },
   {
-    img: "/brand/logo-gold.png",
+    img: "https://images-static.nykaa.com/creatives/a8435015-fb2f-4538-89bd-0481b631fc5b/default.jpg?tr=w-400,cm-pad_resize",
     offer: "Up To 35% Off",
     description: "High-Pigment Lip Couture",
-    link: "/category/makeup",
-  },
+    link: "/category/makeup"
+  }
 ];
 
 export default function HeroCarousel() {
@@ -71,12 +71,13 @@ export default function HeroCarousel() {
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
+      {/* Container for slides */}
       <div className="relative overflow-hidden rounded-[14px]">
         <div
           className="flex transition-transform duration-500 ease-out"
           style={{
             transform: `translateX(-${startIndex * (100 / 3)}%)`,
-            width: `${(total / 3) * 100}%`,
+            width: `${(total / 3) * 100}%`
           }}
         >
           {heroData.map((item, idx) => (
@@ -89,6 +90,7 @@ export default function HeroCarousel() {
                 href={item.link}
                 className="group relative block overflow-hidden rounded-[12px] bg-mb-surface border border-mb-border shadow-card hover:shadow-dropdown transition-all"
               >
+                {/* Image */}
                 <div className="relative aspect-[16/10] sm:aspect-[4/3] w-full overflow-hidden bg-mb-surface">
                   <img
                     src={item.img}
@@ -96,6 +98,8 @@ export default function HeroCarousel() {
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                 </div>
+
+                {/* Card text placed at bottom */}
                 <div className="p-3.5 bg-mb-surface border-t border-mb-border">
                   <h3 className="font-serif text-sm sm:text-base font-semibold text-mb-text group-hover:text-mb-primary transition-colors leading-snug truncate">
                     {item.offer}
@@ -110,6 +114,7 @@ export default function HeroCarousel() {
         </div>
       </div>
 
+      {/* Prev button */}
       <button
         onClick={prevSlide}
         aria-label="Previous slide"
@@ -120,6 +125,7 @@ export default function HeroCarousel() {
         </svg>
       </button>
 
+      {/* Next button */}
       <button
         onClick={nextSlide}
         aria-label="Next slide"
