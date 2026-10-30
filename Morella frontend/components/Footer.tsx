@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import BrandLogo from "@/components/BrandLogo";
 
 /* ── Data ─────────────────────────────────────────────────────── */
 const LINKS = [
@@ -36,29 +37,41 @@ const SOCIALS = [
 /* ── Component ────────────────────────────────────────────────── */
 export default function Footer() {
   return (
-    <footer className="bg-white border-t border-[#CDD3D8]" role="contentinfo">
+    <footer className="bg-mb-primary border-t border-mb-primary-hover text-mb-bg" role="contentinfo">
+
+      {/* ── Brand & Tagline Header ──────────────────────────── */}
+      <div className="border-b border-mb-primary-hover/60 py-8 px-4">
+        <div className="mx-auto max-w-content flex flex-col items-center justify-center text-center">
+          <Link href="/" aria-label="Moryelle Beauté" className="inline-block mb-3">
+            <BrandLogo variant="secondary" className="h-10 md:h-12 w-auto min-w-[96px]" />
+          </Link>
+          <p className="text-xs md:text-sm font-light text-mb-gold uppercase tracking-[0.3em]">
+            Beauty Beyond Today
+          </p>
+        </div>
+      </div>
 
       {/* ── App + Social strip ──────────────────────────────── */}
-      <div className="bg-[#F4F4F4] border-b border-[#CDD3D8]">
-        <div className="mx-auto max-w-content px-4 md:px-6 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div className="border-b border-mb-primary-hover/60">
+        <div className="mx-auto max-w-content px-4 md:px-6 py-5 flex flex-col md:flex-row items-center justify-between gap-4">
           <div>
-            <p className="text-sm font-semibold text-[#000000]">
+            <p className="text-base font-serif font-semibold text-mb-bg">
               Get Extra 20% Off on Your First App Order
             </p>
-            <p className="text-xs text-[#595E63] mt-0.5">Download the MORYELLE app today</p>
+            <p className="text-xs text-mb-gold mt-0.5">Experience Moryelle Beauté on iOS &amp; Android</p>
           </div>
           <div className="flex gap-2">
             <a
               href="#"
-              className="inline-block bg-[#000000] text-white text-xs font-medium px-4 py-2 rounded-md hover:opacity-80 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#E80071]"
-              aria-label="Get MORYELLE on Google Play"
+              className="inline-block bg-mb-bg text-mb-primary text-xs font-semibold px-4 py-2.5 rounded-md hover:bg-mb-surface transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mb-accent"
+              aria-label="Get Moryelle Beauté on Google Play"
             >
               Google Play
             </a>
             <a
               href="#"
-              className="inline-block bg-[#000000] text-white text-xs font-medium px-4 py-2 rounded-md hover:opacity-80 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#E80071]"
-              aria-label="Download MORYELLE on App Store"
+              className="inline-block bg-mb-bg text-mb-primary text-xs font-semibold px-4 py-2.5 rounded-md hover:bg-mb-surface transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mb-accent"
+              aria-label="Download Moryelle Beauté on App Store"
             >
               App Store
             </a>
@@ -69,7 +82,7 @@ export default function Footer() {
                 key={s.label}
                 href="#"
                 aria-label={s.label}
-                className="flex h-8 w-8 items-center justify-center rounded-full border border-[#CDD3D8] bg-white text-xs font-semibold text-[#595E63] hover:bg-[#E80071] hover:text-white hover:border-[#E80071] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E80071]"
+                className="flex h-8 w-8 items-center justify-center rounded-full border border-mb-gold/40 bg-mb-primary text-xs font-semibold text-mb-gold hover:bg-mb-bg hover:text-mb-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mb-accent"
               >
                 {s.abbr}
               </a>
@@ -79,20 +92,20 @@ export default function Footer() {
       </div>
 
       {/* ── Links grid ──────────────────────────────────────── */}
-      <div className="mx-auto max-w-content px-4 md:px-6 py-8">
+      <div className="mx-auto max-w-content px-4 md:px-6 py-10">
         <nav aria-label="Footer navigation">
-          <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-5">
+          <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 md:grid-cols-5">
             {LINKS.map(section => (
               <div key={section.title}>
-                <h3 className="text-xs font-semibold text-[#000000] uppercase tracking-wider mb-3">
+                <h3 className="text-xs font-semibold text-mb-gold uppercase tracking-[0.2em] mb-4">
                   {section.title}
                 </h3>
-                <ul className="flex flex-col gap-2" role="list">
+                <ul className="flex flex-col gap-2.5" role="list">
                   {section.items.map(item => (
                     <li key={item} role="listitem">
                       <Link
                         href="#"
-                        className="text-xs text-[#595E63] hover:text-[#E80071] transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#E80071] rounded"
+                        className="text-xs text-mb-bg/90 hover:text-mb-gold transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-mb-accent rounded"
                       >
                         {item}
                       </Link>
@@ -105,25 +118,25 @@ export default function Footer() {
         </nav>
 
         {/* Bottom bar */}
-        <div className="mt-8 pt-5 border-t border-[#CDD3D8] flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div className="mt-10 pt-6 border-t border-mb-primary-hover/60 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div>
-            <p className="text-xs text-[#000000] font-medium">
-              Customer Care: 1800-267-4444
+            <p className="text-xs text-mb-bg font-medium">
+              Customer Concierge: 1800-267-4444
             </p>
-            <p className="text-[10px] text-[#6F7981] mt-0.5">All days, 8 AM to 10 PM</p>
+            <p className="text-[11px] text-mb-gold/80 mt-0.5">Available 7 days a week, 8 AM – 10 PM IST</p>
           </div>
-          <nav className="flex gap-4" aria-label="Legal links">
+          <nav className="flex gap-5" aria-label="Legal links">
             {["Privacy Policy", "Terms of Service", "Sitemap"].map(l => (
               <a
                 key={l}
                 href="#"
-                className="text-xs text-[#595E63] hover:text-[#E80071] transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#E80071] rounded"
+                className="text-xs text-mb-gold hover:text-mb-bg transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-mb-accent rounded"
               >
                 {l}
               </a>
             ))}
           </nav>
-          <p className="text-[10px] text-[#6F7981]">© 2026 MORYELLE. All rights reserved.</p>
+          <p className="text-xs text-mb-gold/80">© 2026 Moryelle Beauté. All rights reserved.</p>
         </div>
       </div>
 

@@ -10,13 +10,44 @@ import { useRouter } from "next/router";
 import { useCart } from "@/context/CartContext";
 import { useWishlist } from "@/context/WishlistContext";
 import { products } from "@/components/ProductGrid";
+import BrandLogo from "@/components/BrandLogo";
+
+/* ── SVG icons ────────────────────────────────────────────────── */
+const MobileIcon = () => (
+  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
+    <line x1="12" y1="18" x2="12.01" y2="18" />
+  </svg>
+);
+const LocationIcon = () => (
+  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+    <circle cx="12" cy="10" r="3" />
+  </svg>
+);
+const GiftCardIcon = () => (
+  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <polyline points="20 12 20 22 4 22 4 12" />
+    <rect x="2" y="7" width="20" height="5" />
+    <line x1="12" y1="22" x2="12" y2="7" />
+    <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z" />
+    <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z" />
+  </svg>
+);
+const HelpIcon = () => (
+  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <circle cx="12" cy="12" r="10" />
+    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+    <line x1="12" y1="17" x2="12.01" y2="17" />
+  </svg>
+);
 
 /* ── Data — exact Nykaa labels from snapshots ─────────────────── */
 const TOP_LINKS = [
-  { label: "Get App",         href: "#" },
-  { label: "Store & Events",  href: "#" },
-  { label: "Gift Card",       href: "#" },
-  { label: "Help",            href: "#" },
+  { label: "Get App",         href: "#", icon: MobileIcon },
+  { label: "Store & Events",  href: "#", icon: LocationIcon },
+  { label: "Gift Card",       href: "#", icon: GiftCardIcon },
+  { label: "Help",            href: "#", icon: HelpIcon },
 ];
 
 const PRIMARY_NAV = [
@@ -42,8 +73,6 @@ const CATEGORY_NAV = [
   { label: "Fashion Selects",     href: "/category/fashion" },
   { label: "Offers",              href: "/category/offers", accent: true },
 ];
-
-/* ── SVG icons ────────────────────────────────────────────────── */
 const SearchIcon = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
     strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -143,45 +172,50 @@ export default function Header() {
     <>
       {/* Skip link */}
       <a href="#main-content"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[200] focus:bg-[#E80071] focus:text-white focus:px-3 focus:py-1.5 focus:rounded focus:text-xs focus:font-semibold">
+        className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[200] focus:bg-mb-primary focus:text-mb-bg focus:px-3 focus:py-1.5 focus:rounded focus:text-xs focus:font-semibold">
         Skip to main content
       </a>
 
-      <header className="sticky top-0 z-50 bg-white shadow-sm" role="banner">
+      <header className="sticky top-0 z-50 bg-mb-bg shadow-sm" role="banner">
 
         {/* ══ TIER 1: Announcement + top utility links ═════════ */}
-        <div className="bg-[#E80071] text-white">
-          <div className="mx-auto max-w-[1280px] px-4 md:px-6 h-8 flex items-center justify-between">
+        <div className="bg-mb-surface text-mb-primary border-b border-mb-border">
+          <div className="mx-auto max-w-content px-4 md:px-6 h-8 flex items-center justify-between">
             {/* Announcement — clickable like Nykaa "BEAUTY BONANZA" */}
             <Link href="#"
-              className="text-[11px] font-semibold tracking-wide truncate hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white">
+              className="text-[11px] font-semibold tracking-wide truncate hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-mb-accent">
               Get Extra 20% Off on First App Order! Use Code: MORYELLE20
             </Link>
 
-            {/* Utility list — [Get App, Store & Events, Gift Card, Help] */}
-            <ul className="hidden md:flex items-center" role="list">
-              {TOP_LINKS.map(link => (
-                <li key={link.label} role="listitem">
-                  <a href={link.href}
-                    className="flex items-center gap-1 px-3 text-[11px] font-medium hover:underline whitespace-nowrap focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white">
-                    {link.label}
-                  </a>
-                </li>
-              ))}
+            {/* Utility list — [Get App, Store & Events, Gift Card, Help] with icons and dividers */}
+            <ul className="hidden md:flex items-center text-mb-primary" role="list">
+              {TOP_LINKS.map((link, idx) => {
+                const IconComponent = link.icon;
+                return (
+                  <React.Fragment key={link.label}>
+                    {idx > 0 && <span className="text-mb-dusty text-[10px] select-none">|</span>}
+                    <li role="listitem">
+                      <a href={link.href}
+                        className="flex items-center gap-1.5 px-2.5 text-[11px] font-medium hover:underline whitespace-nowrap focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-mb-accent">
+                        <IconComponent />
+                        <span>{link.label}</span>
+                      </a>
+                    </li>
+                  </React.Fragment>
+                );
+              })}
             </ul>
           </div>
         </div>
 
         {/* ══ TIER 2: Logo | Primary nav | Search | Actions ════ */}
-        <div className="bg-white border-b border-[#E8E8E8]">
-          <div className="mx-auto max-w-[1280px] px-4 md:px-6 h-14 flex items-center gap-3">
+        <div className="bg-mb-bg border-b border-mb-border">
+          <div className="mx-auto max-w-content px-4 md:px-6 h-14 flex items-center gap-3">
 
-            {/* Logo */}
-            <Link href="/" aria-label="MORYELLE — homepage"
-              className="flex-shrink-0 mr-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E80071] rounded">
-              <span className="text-[20px] font-bold text-[#E80071] tracking-[0.15em] uppercase leading-none">
-                MORYELLE
-              </span>
+            {/* Logo — secondary wordmark, 40px mobile / 48px desktop */}
+            <Link href="/" aria-label="Moryelle Beauté — homepage"
+              className="flex-shrink-0 mr-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mb-accent rounded">
+              <BrandLogo variant="secondary" className="h-10 md:h-12 w-auto min-w-[96px]" />
             </Link>
 
             {/* Primary nav — [Categories, Brands, Luxe, Fashion, Beauty Advice] */}
@@ -192,7 +226,7 @@ export default function Header() {
                     {item.href.startsWith("/") ? (
                       <Link
                         href={item.href}
-                        className="flex items-center gap-1 px-3 py-1 text-[13px] font-medium text-[#000000] hover:text-[#E80071] transition-colors whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E80071] rounded"
+                        className="flex items-center gap-1 px-3 py-1 text-[13px] font-medium text-mb-primary hover:text-mb-accent-deep transition-colors whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mb-accent rounded"
                       >
                         {item.label}
                       </Link>
@@ -201,8 +235,8 @@ export default function Header() {
                         type="button"
                         onClick={() => setActiveMenu(activeMenu === item.label ? null : item.label)}
                         onMouseEnter={() => setActiveMenu(item.label)}
-                        className={`flex items-center gap-1 px-3 py-1 text-[13px] font-medium transition-colors whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E80071] rounded ${
-                          activeMenu === item.label ? "text-[#E80071]" : "text-[#000000] hover:text-[#E80071]"
+                        className={`flex items-center gap-1 px-3 py-1 text-[13px] font-medium transition-colors whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mb-accent rounded ${
+                          activeMenu === item.label ? "text-mb-primary border-b-2 border-mb-accent" : "text-mb-primary hover:text-mb-accent-deep"
                         }`}
                       >
                         {item.label}
@@ -217,27 +251,27 @@ export default function Header() {
               {activeMenu === "Categories" && (
                 <div
                   onMouseLeave={() => setActiveMenu(null)}
-                  className="absolute top-full left-0 mt-2 w-[460px] bg-white rounded-md shadow-lg border border-[#CDD3D8] p-4 z-50 grid grid-cols-2 gap-4"
+                  className="absolute top-full left-0 mt-2 w-[460px] bg-mb-bg rounded-md shadow-lg border border-mb-border p-4 z-50 grid grid-cols-2 gap-4"
                 >
                   <div>
-                    <h3 className="text-xs font-bold text-[#E80071] uppercase tracking-wider mb-2">Popular Categories</h3>
-                    <ul className="flex flex-col gap-1.5 text-xs text-[#000000]">
-                      <li><Link href="/category/makeup" onClick={() => setActiveMenu(null)} className="hover:text-[#E80071]">Makeup (Lips, Eyes, Face)</Link></li>
-                      <li><Link href="/category/skincare" onClick={() => setActiveMenu(null)} className="hover:text-[#E80071]">Skincare (Moisturizers, Serums)</Link></li>
-                      <li><Link href="/category/hair" onClick={() => setActiveMenu(null)} className="hover:text-[#E80071]">Hair Care (Shampoos, Oils)</Link></li>
-                      <li><Link href="/category/fragrance" onClick={() => setActiveMenu(null)} className="hover:text-[#E80071]">Fragrance &amp; Perfumes</Link></li>
-                      <li><Link href="/category/bath-body" onClick={() => setActiveMenu(null)} className="hover:text-[#E80071]">Bath &amp; Body Wash</Link></li>
-                      <li><Link href="/category/appliances" onClick={() => setActiveMenu(null)} className="hover:text-[#E80071]">Beauty Appliances</Link></li>
+                    <h3 className="text-xs font-bold text-mb-accent-deep uppercase tracking-wider mb-2">Popular Categories</h3>
+                    <ul className="flex flex-col gap-1.5 text-xs text-mb-text">
+                      <li><Link href="/category/makeup" onClick={() => setActiveMenu(null)} className="hover:text-mb-accent-deep">Makeup (Lips, Eyes, Face)</Link></li>
+                      <li><Link href="/category/skincare" onClick={() => setActiveMenu(null)} className="hover:text-mb-accent-deep">Skincare (Moisturizers, Serums)</Link></li>
+                      <li><Link href="/category/hair" onClick={() => setActiveMenu(null)} className="hover:text-mb-accent-deep">Hair Care (Shampoos, Oils)</Link></li>
+                      <li><Link href="/category/fragrance" onClick={() => setActiveMenu(null)} className="hover:text-mb-accent-deep">Fragrance &amp; Perfumes</Link></li>
+                      <li><Link href="/category/bath-body" onClick={() => setActiveMenu(null)} className="hover:text-mb-accent-deep">Bath &amp; Body Wash</Link></li>
+                      <li><Link href="/category/appliances" onClick={() => setActiveMenu(null)} className="hover:text-mb-accent-deep">Beauty Appliances</Link></li>
                     </ul>
                   </div>
                   <div>
-                    <h3 className="text-xs font-bold text-[#595E63] uppercase tracking-wider mb-2">Featured Highlights</h3>
-                    <ul className="flex flex-col gap-1.5 text-xs text-[#000000]">
-                      <li><Link href="/category/luxe" onClick={() => setActiveMenu(null)} className="hover:text-[#E80071]">MORYELLE Luxe</Link></li>
-                      <li><Link href="/category/gifting" onClick={() => setActiveMenu(null)} className="hover:text-[#E80071]">Gifting Studio</Link></li>
-                      <li><Link href="/category/natural" onClick={() => setActiveMenu(null)} className="hover:text-[#E80071]">Natural &amp; Clean Beauty</Link></li>
-                      <li><Link href="/category/health-wellness" onClick={() => setActiveMenu(null)} className="hover:text-[#E80071]">Health &amp; Wellness</Link></li>
-                      <li><Link href="/category/offers" onClick={() => setActiveMenu(null)} className="text-[#E80071] font-semibold hover:underline">Special Offers &amp; Combos</Link></li>
+                    <h3 className="text-xs font-bold text-mb-body uppercase tracking-wider mb-2">Featured Highlights</h3>
+                    <ul className="flex flex-col gap-1.5 text-xs text-mb-text">
+                      <li><Link href="/category/luxe" onClick={() => setActiveMenu(null)} className="hover:text-mb-accent-deep">MORYELLE Luxe</Link></li>
+                      <li><Link href="/category/gifting" onClick={() => setActiveMenu(null)} className="hover:text-mb-accent-deep">Gifting Studio</Link></li>
+                      <li><Link href="/category/natural" onClick={() => setActiveMenu(null)} className="hover:text-mb-accent-deep">Natural &amp; Clean Beauty</Link></li>
+                      <li><Link href="/category/health-wellness" onClick={() => setActiveMenu(null)} className="hover:text-mb-accent-deep">Health &amp; Wellness</Link></li>
+                      <li><Link href="/category/offers" onClick={() => setActiveMenu(null)} className="text-mb-accent-deep font-semibold hover:underline">Special Offers &amp; Combos</Link></li>
                     </ul>
                   </div>
                 </div>
@@ -247,18 +281,18 @@ export default function Header() {
               {activeMenu === "Brands" && (
                 <div
                   onMouseLeave={() => setActiveMenu(null)}
-                  className="absolute top-full left-12 mt-2 w-[340px] bg-white rounded-md shadow-lg border border-[#CDD3D8] p-4 z-50"
+                  className="absolute top-full left-12 mt-2 w-[340px] bg-mb-bg rounded-md shadow-lg border border-mb-border p-4 z-50"
                 >
-                  <h3 className="text-xs font-bold text-[#E80071] uppercase tracking-wider mb-2">Top Brands</h3>
-                  <div className="grid grid-cols-2 gap-2 text-xs text-[#000000]">
-                    <Link href="/category/loreal-paris" onClick={() => setActiveMenu(null)} className="hover:text-[#E80071]">L&apos;Oréal Paris</Link>
-                    <Link href="/category/maybelline" onClick={() => setActiveMenu(null)} className="hover:text-[#E80071]">Maybelline</Link>
-                    <Link href="/category/lakme" onClick={() => setActiveMenu(null)} className="hover:text-[#E80071]">Lakmé</Link>
-                    <Link href="/category/fenty-beauty" onClick={() => setActiveMenu(null)} className="hover:text-[#E80071]">Fenty Beauty</Link>
-                    <Link href="/category/biotique" onClick={() => setActiveMenu(null)} className="hover:text-[#E80071]">Biotique</Link>
-                    <Link href="/category/mamaearth" onClick={() => setActiveMenu(null)} className="hover:text-[#E80071]">Mamaearth</Link>
-                    <Link href="/category/pixi" onClick={() => setActiveMenu(null)} className="hover:text-[#E80071]">PIXI</Link>
-                    <Link href="/category/moryelle" onClick={() => setActiveMenu(null)} className="font-semibold text-[#E80071]">MORYELLE Cosmetics</Link>
+                  <h3 className="text-xs font-bold text-mb-accent-deep uppercase tracking-wider mb-2">Top Brands</h3>
+                  <div className="grid grid-cols-2 gap-2 text-xs text-mb-text">
+                    <Link href="/category/loreal-paris" onClick={() => setActiveMenu(null)} className="hover:text-mb-accent-deep">L&apos;Oréal Paris</Link>
+                    <Link href="/category/maybelline" onClick={() => setActiveMenu(null)} className="hover:text-mb-accent-deep">Maybelline</Link>
+                    <Link href="/category/lakme" onClick={() => setActiveMenu(null)} className="hover:text-mb-accent-deep">Lakmé</Link>
+                    <Link href="/category/fenty-beauty" onClick={() => setActiveMenu(null)} className="hover:text-mb-accent-deep">Fenty Beauty</Link>
+                    <Link href="/category/biotique" onClick={() => setActiveMenu(null)} className="hover:text-mb-accent-deep">Biotique</Link>
+                    <Link href="/category/mamaearth" onClick={() => setActiveMenu(null)} className="hover:text-mb-accent-deep">Mamaearth</Link>
+                    <Link href="/category/pixi" onClick={() => setActiveMenu(null)} className="hover:text-mb-accent-deep">PIXI</Link>
+                    <Link href="/category/moryelle" onClick={() => setActiveMenu(null)} className="font-semibold text-mb-accent-deep">MORYELLE Cosmetics</Link>
                   </div>
                 </div>
               )}
@@ -268,25 +302,25 @@ export default function Header() {
             <div ref={searchContainerRef} className="flex-1 hidden md:block relative">
               <form
                 onSubmit={handleSearchSubmit}
-                className="flex items-center bg-[#F4F4F4] border border-[#E8E8E8] rounded-sm h-9 focus-within:border-[#E80071] transition-colors"
+                className="flex items-center bg-mb-surface border border-mb-border rounded h-9 focus-within:border-mb-accent focus-within:ring-2 focus-within:ring-mb-accent transition-colors"
               >
                 <label htmlFor="header-search" className="sr-only">Search on MORYELLE</label>
                 <input
                   id="header-search"
                   type="search"
                   name="q"
-                  placeholder="Search on MORYELLE"
+                  placeholder="Search on Moryelle Beauté"
                   autoComplete="off"
                   spellCheck={false}
                   value={searchVal}
                   onChange={e => setSearchVal(e.target.value)}
                   onFocus={() => setSearchFocused(true)}
-                  className="flex-1 min-w-0 bg-transparent pl-3 pr-1 text-[13px] text-[#000000] placeholder-[#999] outline-none"
+                  className="flex-1 min-w-0 bg-transparent pl-3 pr-1 text-[13px] text-mb-text placeholder-mb-placeholder outline-none"
                 />
                 <button
                   type="submit"
                   aria-label="Search"
-                  className="flex-shrink-0 px-3 h-full text-[#666] hover:text-[#E80071] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E80071]"
+                  className="flex-shrink-0 px-3 h-full text-mb-accent hover:text-mb-accent-deep transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mb-accent"
                 >
                   <SearchIcon />
                 </button>
@@ -294,8 +328,8 @@ export default function Header() {
 
               {/* Live search suggestions dropdown */}
               {searchFocused && searchVal.trim().length > 0 && (
-                <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-[#CDD3D8] rounded-md shadow-xl z-50 overflow-hidden">
-                  <div className="p-2 border-b border-[#F4F4F4] text-[11px] font-semibold text-[#595E63] uppercase">
+                <div className="absolute top-full left-0 right-0 mt-1 bg-mb-surface border border-mb-border rounded-md shadow-xl z-50 overflow-hidden">
+                  <div className="p-2 border-b border-mb-border-lite text-[11px] font-semibold text-mb-body uppercase">
                     Products matching &quot;{searchVal}&quot;
                   </div>
                   {searchResults.length > 0 ? (
@@ -308,30 +342,30 @@ export default function Header() {
                             setSearchFocused(false);
                             setSearchVal("");
                           }}
-                          className="flex items-center gap-3 px-3 py-2 hover:bg-[#F4F4F4] transition-colors border-b border-[#F4F4F4] last:border-0"
+                          className="flex items-center gap-3 px-3 py-2 hover:bg-mb-surface transition-colors border-b border-mb-border-lite last:border-0"
                         >
                           <img
                             src={prod.image}
                             alt=""
                             width={36}
                             height={36}
-                            className="w-9 h-9 object-contain bg-white rounded-sm p-0.5 border border-[#E8E8E8]"
+                            className="w-9 h-9 object-contain bg-mb-surface rounded-sm p-0.5 border border-mb-border"
                           />
                           <div className="flex-1 min-w-0">
-                            <p className="text-[10px] text-[#595E63] font-semibold uppercase">{prod.brand}</p>
-                            <p className="text-[12px] text-[#000000] truncate font-medium">{prod.name}</p>
+                            <p className="text-[10px] text-mb-body font-semibold uppercase">{prod.brand}</p>
+                            <p className="text-[12px] text-mb-text truncate font-medium">{prod.name}</p>
                           </div>
                           <div className="text-right">
-                            <span className="text-[12px] font-semibold text-[#000000]">₹{prod.price}</span>
+                            <span className="text-[12px] font-semibold text-mb-text">₹{prod.price}</span>
                             {prod.discount && (
-                              <span className="block text-[10px] text-[#E80071] font-medium">{prod.discount}% Off</span>
+                              <span className="block text-[10px] text-mb-accent-deep font-medium">{prod.discount}% Off</span>
                             )}
                           </div>
                         </Link>
                       ))}
                     </div>
                   ) : (
-                    <div className="p-4 text-center text-xs text-[#595E63]">
+                    <div className="p-4 text-center text-xs text-mb-body">
                       No products found. Press Enter to view all results.
                     </div>
                   )}
@@ -344,28 +378,28 @@ export default function Header() {
 
               {/* Mobile search */}
               <button type="button" aria-label="Search"
-                className="md:hidden p-2 text-[#595E63] hover:text-[#E80071] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E80071] rounded">
+                className="md:hidden p-2 text-mb-body hover:text-mb-accent-deep transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mb-accent rounded">
                 <SearchIcon />
               </button>
 
-              {/* Sign in button — exact label from snapshot */}
+              {/* Sign in button — exact Nykaa solid pink pill button */}
               <button type="button"
                 onClick={() => setLoginOpen(true)}
-                className="hidden md:flex items-center gap-1.5 px-3 py-1.5 text-[13px] font-medium text-[#000000] hover:text-[#E80071] transition-colors border border-[#E8E8E8] rounded-sm hover:border-[#E80071] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E80071]">
+                className="hidden md:inline-flex items-center justify-center px-4 py-1.5 text-[13px] font-semibold text-mb-bg bg-mb-primary hover:bg-mb-primary-hover transition-colors rounded shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mb-accent">
                 Sign in
               </button>
 
               {/* Wishlist */}
               <Link href="/wishlist"
                 aria-label={`Wishlist, ${wishlistCount} items`}
-                className="relative hidden md:flex p-2 text-[#595E63] hover:text-[#E80071] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E80071] rounded">
+                className="relative hidden md:flex p-2 text-mb-body hover:text-mb-accent-deep transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mb-accent rounded">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                   strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" />
                 </svg>
                 {wishlistCount > 0 && (
                   <span aria-hidden="true"
-                    className="absolute top-0 right-0 w-4 h-4 bg-[#E80071] text-white text-[9px] font-bold rounded-full flex items-center justify-center">
+                    className="absolute top-0 right-0 w-4 h-4 bg-mb-primary text-mb-bg text-[9px] font-bold rounded-full flex items-center justify-center">
                     {wishlistCount > 9 ? "9+" : wishlistCount}
                   </span>
                 )}
@@ -374,10 +408,10 @@ export default function Header() {
               {/* Shopping Bag — exact label from snapshot */}
               <Link href="/cart"
                 aria-label={`Shopping Bag, ${itemCount} items`}
-                className="relative flex items-center gap-1.5 p-2 text-[#595E63] hover:text-[#E80071] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E80071] rounded">
+                className="relative flex items-center gap-1.5 p-2 text-mb-body hover:text-mb-accent-deep transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mb-accent rounded">
                 <BagIcon />
                 <span aria-hidden="true"
-                  className="absolute top-0 right-0 w-4 h-4 bg-[#E80071] text-white text-[9px] font-bold rounded-full flex items-center justify-center">
+                  className="absolute top-0 right-0 w-4 h-4 bg-mb-primary text-mb-bg text-[9px] font-bold rounded-full flex items-center justify-center">
                   {itemCount > 9 ? "9+" : itemCount}
                 </span>
               </Link>
@@ -388,7 +422,7 @@ export default function Header() {
                 aria-expanded={menuOpen}
                 aria-controls="mobile-nav"
                 onClick={() => setMenuOpen(v => !v)}
-                className="lg:hidden p-2 text-[#595E63] hover:text-[#E80071] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E80071] rounded">
+                className="lg:hidden p-2 text-mb-body hover:text-mb-accent-deep transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mb-accent rounded">
                 {menuOpen ? <CloseIcon /> : <MenuIcon />}
               </button>
             </div>
@@ -398,14 +432,14 @@ export default function Header() {
         {/* ══ TIER 3: Category nav ══════════════════════════════ */}
         {/* navigation "Secondary" > navigation "Main navigation menu" from snapshot */}
         <nav aria-label="Main navigation menu"
-          className="hidden lg:block bg-white border-b border-[#E8E8E8]">
-          <div className="mx-auto max-w-[1280px] px-6">
+          className="hidden lg:block bg-mb-surface border-b border-mb-border">
+          <div className="mx-auto max-w-content px-4 md:px-6">
             <ul className="flex items-center overflow-x-auto no-scrollbar" role="list">
               {CATEGORY_NAV.map(cat => (
                 <li key={cat.label} role="listitem">
                   <Link href={cat.href}
-                    className={`block px-3 py-2.5 text-[13px] font-medium whitespace-nowrap border-b-2 border-transparent hover:border-[#E80071] hover:text-[#E80071] transition-colors capitalize focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E80071] ${
-                      cat.accent ? "text-[#E80071] font-semibold" : "text-[#000000]"
+                    className={`block px-3 py-2.5 text-[13px] font-medium whitespace-nowrap border-b-2 border-transparent hover:border-mb-accent hover:text-mb-accent-deep transition-colors capitalize focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mb-accent ${
+                      cat.accent ? "text-mb-accent-deep font-semibold" : "text-mb-text"
                     }`}>
                     {cat.label}
                   </Link>
@@ -418,7 +452,7 @@ export default function Header() {
         {/* Mobile nav drawer */}
         {menuOpen && (
           <nav id="mobile-nav" aria-label="Mobile navigation"
-            className="lg:hidden bg-white border-t border-[#E8E8E8] shadow-md max-h-[80vh] overflow-y-auto">
+            className="lg:hidden bg-mb-surface border-t border-mb-border shadow-md max-h-[80vh] overflow-y-auto">
 
             {/* Mobile search */}
             <form
@@ -431,14 +465,14 @@ export default function Header() {
                   router.push(`/category/all?q=${encodeURIComponent(input.value.trim())}`);
                 }
               }}
-              className="px-4 py-3 border-b border-[#F4F4F4]"
+              className="px-4 py-3 border-b border-mb-border-lite"
             >
               <label htmlFor="mobile-search" className="sr-only">Search</label>
-              <div className="flex items-center bg-[#F4F4F4] border border-[#E8E8E8] rounded-sm h-9 focus-within:border-[#E80071]">
-                <input id="mobile-search" type="search" name="q" placeholder="Search on MORYELLE"
+              <div className="flex items-center bg-mb-surface border border-mb-border rounded-sm h-9 focus-within:border-mb-accent">
+                <input id="mobile-search" type="search" name="q" placeholder="Search on Moryelle Beauté"
                   autoComplete="off"
                   className="flex-1 bg-transparent pl-3 text-[13px] outline-none" />
-                <button type="submit" aria-label="Search" className="px-3 text-[#999] hover:text-[#E80071]"><SearchIcon /></button>
+                <button type="submit" aria-label="Search" className="px-3 text-mb-placeholder hover:text-mb-accent-deep"><SearchIcon /></button>
               </div>
             </form>
 
@@ -446,8 +480,8 @@ export default function Header() {
               {CATEGORY_NAV.map(cat => (
                 <li key={cat.label} role="listitem">
                   <Link href={cat.href} onClick={() => setMenuOpen(false)}
-                    className={`flex items-center px-4 py-3 text-[13px] font-medium border-b border-[#F4F4F4] hover:bg-[#F4F4F4] capitalize transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#E80071] ${
-                      cat.accent ? "text-[#E80071]" : "text-[#000000]"
+                    className={`flex items-center px-4 py-3 text-[13px] font-medium border-b border-mb-border-lite hover:bg-mb-surface capitalize transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-mb-accent ${
+                      cat.accent ? "text-mb-accent-deep" : "text-mb-text"
                     }`}>
                     {cat.label}
                   </Link>
@@ -456,7 +490,7 @@ export default function Header() {
               <li role="listitem">
                 <button type="button"
                   onClick={() => { setMenuOpen(false); setLoginOpen(true); }}
-                  className="w-full text-left px-4 py-3 text-[13px] font-medium text-[#E80071] border-b border-[#F4F4F4] hover:bg-[#F4F4F4] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#E80071]">
+                  className="w-full text-left px-4 py-3 text-[13px] font-medium text-mb-accent-deep border-b border-mb-border-lite hover:bg-mb-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-mb-accent">
                   Sign In / Register
                 </button>
               </li>
@@ -468,57 +502,57 @@ export default function Header() {
       {/* ══ Login modal — matches Nykaa snapshot exactly ════════ */}
       {loginOpen && (
         <div role="dialog" aria-modal="true" aria-labelledby="login-title"
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50"
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-mb-text/50"
           onClick={e => { if (e.target === e.currentTarget) setLoginOpen(false); }}>
           <div ref={modalRef}
-            className="relative bg-white w-full max-w-[360px] rounded-lg shadow-xl mx-4"
+            className="relative bg-mb-surface w-full max-w-[360px] rounded-lg shadow-xl mx-4"
             style={{ overscrollBehavior: "contain" }}>
 
             {/* Close */}
             <button type="button" aria-label="Close"
               onClick={() => setLoginOpen(false)}
-              className="absolute top-3 right-3 p-1 text-[#999] hover:text-[#000] rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E80071]">
+              className="absolute top-3 right-3 p-1 text-mb-placeholder hover:text-mb-text rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mb-accent">
               <CloseIcon />
             </button>
 
             <div className="px-6 py-5">
               {/* heading "Login or Signup" [level=1] — from snapshot */}
-              <h1 id="login-title" className="text-[18px] font-semibold text-[#000000] mb-1">
+              <h1 id="login-title" className="text-[18px] font-semibold text-mb-text mb-1">
                 Login or Signup
               </h1>
-              <p className="text-[13px] text-[#595E63] mb-5">
+              <p className="text-[13px] text-mb-body mb-5">
                 Get started &amp; grab best offers!
               </p>
 
               {/* textbox "Mobile Number" — from snapshot */}
               <div className="mb-4">
-                <label htmlFor="login-mobile" className="block text-[12px] font-medium text-[#000000] mb-1.5">
+                <label htmlFor="login-mobile" className="block text-[12px] font-medium text-mb-text mb-1.5">
                   Mobile Number
                 </label>
                 <input id="login-mobile" type="tel" name="phone"
                   placeholder=""
                   autoComplete="tel"
                   spellCheck={false}
-                  className="w-full border border-[#CDD3D8] rounded-sm px-3 py-2.5 text-[13px] text-[#000000] outline-none focus:border-[#E80071] focus:ring-1 focus:ring-[#E80071] transition-colors"
+                  className="w-full border border-mb-border rounded-sm px-3 py-2.5 text-[13px] text-mb-text outline-none focus:border-mb-accent focus:ring-1 focus:ring-mb-accent transition-colors"
                 />
               </div>
 
               {/* button "Send OTP" [disabled] — from snapshot */}
               <button type="button"
-                className="w-full bg-[#E80071] text-white text-[13px] font-semibold py-2.5 rounded-sm hover:opacity-90 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#E80071]">
+                className="w-full bg-mb-primary text-mb-bg text-[13px] font-semibold py-2.5 rounded-sm hover:opacity-90 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-mb-accent">
                 Send OTP
               </button>
 
               {/* "Or sign in using" divider — from snapshot */}
               <div className="my-4 flex items-center gap-3">
-                <div className="h-px flex-1 bg-[#E8E8E8]" />
-                <span className="text-[12px] text-[#999]">Or sign in using</span>
-                <div className="h-px flex-1 bg-[#E8E8E8]" />
+                <div className="h-px flex-1 bg-mb-border-lite" />
+                <span className="text-[12px] text-mb-placeholder">Or sign in using</span>
+                <div className="h-px flex-1 bg-mb-border-lite" />
               </div>
 
               {/* button "Continue with Google" — from snapshot */}
               <button type="button"
-                className="w-full border border-[#CDD3D8] text-[13px] font-medium text-[#000000] py-2.5 rounded-sm hover:bg-[#F4F4F4] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E80071]">
+                className="w-full border border-mb-border text-[13px] font-medium text-mb-text py-2.5 rounded-sm hover:bg-mb-surface transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mb-accent">
                 Continue with Google
               </button>
             </div>

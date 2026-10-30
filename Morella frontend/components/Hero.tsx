@@ -7,7 +7,7 @@ const heroBanners = (bannersData as any[])
   .slice(0, 6)
   .map((b: any) => ({
     image: b.image as string,
-    title: ((b.callout || b.alt || b.title || "") as string).split("|")[0].trim() || "MORYELLE",
+    title: ((b.callout || b.alt || b.title || "") as string).split("|")[0].trim() || "Moryelle Beauté",
     subtitle: (b.title || "") as string,
     link: (b.link || "#") as string,
   }));
@@ -46,9 +46,8 @@ export default function Hero() {
   return (
     <section
       aria-label="Featured promotions"
-      className="relative w-full overflow-hidden bg-[#F4F4F4]"
-      /* Nykaa hero: full-width, ~420px tall on desktop */
-      style={{ height: "clamp(200px, 35vw, 420px)" }}
+      className="relative w-full overflow-hidden bg-mb-surface border-b border-mb-border"
+      style={{ height: "clamp(220px, 36vw, 440px)" }}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
@@ -61,12 +60,11 @@ export default function Hero() {
           style={{ opacity: i === active ? 1 : 0, pointerEvents: i === active ? "auto" : "none" }}
         >
           <a href={b.link} target="_blank" rel="noreferrer" tabIndex={i === active ? 0 : -1}>
-            {/* object-cover intentional for hero — full bleed like Nykaa */}
             <img
               src={b.image}
               alt={b.title}
               width={1440}
-              height={420}
+              height={440}
               loading={i === 0 ? "eager" : "lazy"}
               fetchPriority={i === 0 ? "high" : undefined}
               className="w-full h-full object-cover"
@@ -82,7 +80,7 @@ export default function Hero() {
             type="button"
             aria-label="Previous slide"
             onClick={prev}
-            className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-7 h-7 rounded-full bg-white/80 flex items-center justify-center shadow hover:bg-white transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E80071]"
+            className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-mb-bg border border-mb-border text-mb-primary flex items-center justify-center shadow-card hover:bg-mb-surface hover:scale-105 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mb-accent"
           >
             <ChevronLeft />
           </button>
@@ -90,7 +88,7 @@ export default function Hero() {
             type="button"
             aria-label="Next slide"
             onClick={next}
-            className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-7 h-7 rounded-full bg-white/80 flex items-center justify-center shadow hover:bg-white transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E80071]"
+            className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-mb-bg border border-mb-border text-mb-primary flex items-center justify-center shadow-card hover:bg-mb-surface hover:scale-105 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mb-accent"
           >
             <ChevronRight />
           </button>
@@ -99,7 +97,7 @@ export default function Hero() {
 
       {/* Dots */}
       {total > 1 && (
-        <div className="absolute bottom-2 left-1/2 -translate-x-1/2 z-10 flex gap-1" role="tablist" aria-label="Slide indicators">
+        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-10 flex gap-1.5" role="tablist" aria-label="Slide indicators">
           {heroBanners.map((_, i) => (
             <button
               key={i}
@@ -108,8 +106,8 @@ export default function Hero() {
               aria-selected={i === active}
               aria-label={`Go to slide ${i + 1}`}
               onClick={() => setActive(i)}
-              className={`h-1.5 rounded-full transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white ${
-                i === active ? "w-5 bg-white" : "w-1.5 bg-white/50"
+              className={`h-2 rounded-full transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mb-primary ${
+                i === active ? "w-6 bg-mb-primary" : "w-2 bg-mb-primary/30"
               }`}
             />
           ))}

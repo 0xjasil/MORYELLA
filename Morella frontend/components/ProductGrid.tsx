@@ -15,7 +15,7 @@ export const products: Product[] = (productsData as any[]).map((p: any, i: numbe
   image:         p.image,
   badge:         p.badge ?? undefined,
   category:      (p.category as Product["category"]) ?? "makeup",
-  brand:         p.brand ?? "MORYELLE",
+  brand:         p.brand ?? "Moryelle",
 }));
 
 /* ── Section header ───────────────────────────────────────────── */
@@ -23,15 +23,14 @@ export function SectionHeader({ title, subtitle, viewAllHref }: {
   title: string; subtitle?: string; viewAllHref?: string;
 }) {
   return (
-    <div className="flex items-end justify-between mb-3">
+    <div className="flex items-end justify-between mb-5">
       <div>
-        <h2 className="text-14 font-semibold text-nk-text leading-tight">{title}</h2>
-        {subtitle && <p className="text-12 text-nk-muted mt-0.5">{subtitle}</p>}
+        <h2 className="font-serif text-xl sm:text-2xl font-semibold text-mb-text leading-tight">{title}</h2>
+        {subtitle && <p className="text-sm text-mb-muted mt-1">{subtitle}</p>}
       </div>
       {viewAllHref && (
         <Link href={viewAllHref}
-          className="text-12 font-medium text-nk-accent hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-nk-accent"
-          style={{ borderRadius: "2px" }}>
+          className="text-sm font-semibold text-mb-accent-deep hover:text-mb-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mb-accent rounded-sm">
           View All →
         </Link>
       )}
@@ -54,40 +53,39 @@ export default function ProductGrid() {
   const filtered = cat === "all" ? products : products.filter(p => p.category === cat);
 
   return (
-    <section className="bg-white py-4 px-4 md:px-6 border-t border-nk-lite" aria-labelledby="pg-heading">
+    <section className="bg-mb-bg py-8 px-4 md:px-6 border-t border-mb-border-lite" aria-labelledby="pg-heading">
       <div className="mx-auto max-w-content">
 
         {/* Header */}
-        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between mb-3">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-6">
           <div>
-            <h2 id="pg-heading" className="text-14 font-semibold text-nk-text">Featured Products</h2>
-            <p className="text-12 text-nk-muted mt-0.5">Authentic beauty, curated for you</p>
+            <h2 id="pg-heading" className="font-serif text-2xl sm:text-3xl font-semibold text-mb-text">Featured Curations</h2>
+            <p className="text-sm text-mb-muted mt-1">Authentic luxury beauty, curated by Moryelle Beauté</p>
           </div>
           {/* Filter pills */}
-          <div role="group" aria-label="Filter by category" className="flex gap-1.5 flex-wrap">
+          <div role="group" aria-label="Filter by category" className="flex gap-2 flex-wrap">
             {CATS.map(c => (
               <button key={c.key} type="button" role="radio" aria-checked={cat === c.key}
                 onClick={() => setCat(c.key)}
-                className={`px-3 py-1 text-12 font-medium border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-nk-accent ${
+                className={`px-4 py-1.5 text-xs font-semibold rounded-full border transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mb-accent ${
                   cat === c.key
-                    ? "bg-nk-accent border-nk-accent text-white"
-                    : "border-nk-border text-nk-muted hover:border-nk-accent hover:text-nk-accent bg-white"
-                }`}
-                style={{ borderRadius: "9999px" }}>
+                    ? "bg-mb-primary border-mb-primary text-mb-bg shadow-sm"
+                    : "bg-mb-surface border-mb-border text-mb-body hover:border-mb-accent hover:text-mb-primary"
+                }`}>
                 {c.label}
               </button>
             ))}
           </div>
         </div>
 
-        {/* Grid — 3→4→5→6→7 cols matching Nykaa density */}
-        <div className="grid grid-cols-3 gap-2 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7"
+        {/* Grid — generous spacing, luxury cards */}
+        <div className="grid grid-cols-2 gap-3.5 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6"
           aria-label="Product listing">
           {filtered.map(p => <ProductCard key={p.id} product={p} />)}
         </div>
 
         {filtered.length === 0 && (
-          <p className="py-12 text-center text-14 text-nk-muted">No products in this category.</p>
+          <p className="py-12 text-center text-sm text-mb-muted">No products found in this category.</p>
         )}
       </div>
     </section>

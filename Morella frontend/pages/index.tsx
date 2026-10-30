@@ -1,238 +1,174 @@
-/**
- * Homepage — exact Nykaa section order from Playwright MCP snapshots
- * Name: MORYELLE (Nykaa clone with brand swap)
- *
- * Sections (Nykaa order):
- * 1. Hero carousel
- * 2. Category offer tiles — "THE BIG PRICE REVEAL" (4-col, star-burst style)
- * 3. Full-width "NEW AT MORYELLE" banner
- * 4. Brand hit list (horizontal scroll, each brand has product image)
- * 5. Featured products grid
- * 6. BrandSpotlight (IN THE SPOTLIGHT)
- * 7. Exclusive collection scroll strip
- * 8. ProductSections (Health & Wellness + Gifting)
- * 9. PromoGrid (Offers + Editorial)
- */
-import React from "react";
+import React, { useState } from "react";
+import Head from "next/head";
 import Header from "@/components/Header";
-import Hero from "@/components/Hero";
-import ProductGrid from "@/components/ProductGrid";
-import BrandSpotlight from "@/components/BrandSpotlight";
-import ProductSections from "@/components/ProductSections";
-import PromoGrid from "@/components/PromoGrid";
 import Footer from "@/components/Footer";
-import bannersData from "@/banners.json";
 import Link from "next/link";
 
-/* ── Banner data ──────────────────────────────────────────────── */
-const all = bannersData as any[];
-
-// Price reveal tiles — IDs 7-20
-const priceTiles = all.filter(b =>
-  b.image && Number(b.id?.split("-")[1]) >= 7 && Number(b.id?.split("-")[1]) <= 20
-).slice(0, 8);
-
-// Wide promo banner — IDs 21-30
-const wideBanner = all.find(b =>
-  b.image && Number(b.id?.split("-")[1]) >= 21 && Number(b.id?.split("-")[1]) <= 30
-);
-
-// Brand scroll strip — IDs 8-30
-const brandScrollBanners = all.filter(b =>
-  b.image && Number(b.id?.split("-")[1]) >= 8 && Number(b.id?.split("-")[1]) <= 30
-).slice(0, 10);
-
-// Collection strip — IDs 84-90
-const collectionBanners = all.filter(b =>
-  [84,85,86,87,88,89,90].includes(Number(b.id?.split("-")[1]))
-).slice(0, 7);
-
-/* ── Category discount data — matches Nykaa "Big Price Reveal" ── */
-const PRICE_CATS = [
-  { label: "Makeup",      pct: "60", href: "/category/makeup"           },
-  { label: "Skin",        pct: "50", href: "/category/skincare"          },
-  { label: "Hair",        pct: "50", href: "/category/hair"              },
-  { label: "Luxe",        pct: "40", href: "/category/luxe"              },
-  { label: "Bath & Body", pct: "50", href: "/category/bath-body"         },
-  { label: "Fragrances",  pct: "60", href: "/category/fragrance"         },
-  { label: "Appliances",  pct: "60", href: "/category/appliances"        },
-  { label: "Wellness",    pct: "50", href: "/category/health-wellness"   },
-];
-
-/* ── Shared layout wrappers ────────────────────────────────────── */
-const W = "mx-auto max-w-content px-4 md:px-6";
-
-function SectionTitle({ children }: { children: React.ReactNode }) {
-  return (
-    <h2 className="text-center text-12 font-semibold text-nk-text uppercase tracking-widest mb-4 flex items-center justify-center gap-2">
-      <span className="text-nk-accent" aria-hidden="true">✦</span>
-      {children}
-      <span className="text-nk-accent" aria-hidden="true">✦</span>
-    </h2>
-  );
-}
+// NykaaClone Components
+import HeroCarousel from "@/components/nykaa/HeroCarousel";
+import DiscoverCategories from "@/components/nykaa/DiscoverCategories";
+import OfferGifsCarousel from "@/components/nykaa/OfferGifsCarousel";
+import TopBrandsSection from "@/components/nykaa/TopBrandsSection";
+import UnmissableOffers from "@/components/nykaa/UnmissableOffers";
+import SaveOnSunscreens from "@/components/nykaa/SaveOnSunscreens";
+import HotListProducts from "@/components/nykaa/HotListProducts";
+import SpotlightSection from "@/components/nykaa/SpotlightSection";
+import RadarSection from "@/components/nykaa/RadarSection";
 
 export default function Home() {
+  const [showAppBanner, setShowAppBanner] = useState(true);
+
   return (
     <>
+      <Head>
+        <title>Moryelle Beauté: Beauty Beyond Today | Luxury Beauty &amp; Cosmetics</title>
+        <meta
+          name="description"
+          content="Discover luxury skincare, couture cosmetics, fine fragrances and wellness at Moryelle Beauté - Beauty Beyond Today."
+        />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+      </Head>
+
+      {/* 1. Header (Moryelle Beauté) */}
       <Header />
-      <main id="main-content" className="min-h-screen bg-nk-bg">
 
-        {/* ═══════════════════════════════════════════════════
-            1. HERO CAROUSEL — full-bleed, 420px tall
-        ════════════════════════════════════════════════════ */}
-        <Hero />
-
-        {/* ═══════════════════════════════════════════════════
-            2. THE BIG PRICE REVEAL
-            Nykaa: pink bg, 4-col, each tile = product image
-            right + "Up To X% Off / Category" text left
-        ════════════════════════════════════════════════════ */}
-        <div className="bg-nk-pink py-5">
-          <div className={W}>
-            <SectionTitle>THE BIG PRICE REVEAL</SectionTitle>
-            <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
-              {PRICE_CATS.map((cat, i) => {
-                const b = priceTiles[i];
-                return (
-                  <Link
-                    key={cat.label}
-                    href={cat.href}
-                    className="group relative flex items-center overflow-hidden bg-white hover:shadow-md transition-shadow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-nk-accent"
-                    style={{ height: "clamp(88px, 11vw, 144px)", borderRadius: "8px" }}
-                  >
-                    {/* Text left */}
-                    <div className="relative z-10 flex-shrink-0 flex flex-col justify-center pl-2.5 py-2"
-                      style={{ width: "52%" }}>
-                      <p className="text-nk-accent font-bold leading-tight"
-                        style={{ fontSize: "clamp(9px, 1.4vw, 13px)" }}>
-                        Up To {cat.pct}%
-                      </p>
-                      <p className="text-nk-accent font-bold leading-tight"
-                        style={{ fontSize: "clamp(9px, 1.4vw, 13px)" }}>
-                        OFF
-                      </p>
-                      <p className="text-nk-text font-semibold mt-0.5"
-                        style={{ fontSize: "clamp(9px, 1.4vw, 12px)" }}>
-                        {cat.label}
-                      </p>
-                    </div>
-                    {/* Product image right */}
-                    <div className="absolute right-0 top-0 h-full"
-                      style={{ width: "55%" }}>
-                      {b?.image ? (
-                        <img src={b.image} alt="" aria-hidden="true"
-                          width={144} height={144} loading="lazy"
-                          className="h-full w-full object-contain object-right transition-transform duration-300 group-hover:scale-105"
-                        />
-                      ) : (
-                        <div className="h-full w-full bg-nk-pink" />
-                      )}
-                    </div>
-                  </Link>
-                );
-              })}
+      <main id="main-content" className="min-h-screen bg-mb-bg w-full overflow-x-hidden">
+        {/* 2. Editorial Top Banner Strip */}
+        <div className="w-full my-1 sm:my-2">
+          <Link
+            href="/category/all"
+            className="block w-full bg-gradient-to-r from-mb-primary via-mb-accent-deep to-mb-primary text-mb-bg py-3 px-4 shadow-sm border-y border-mb-border hover:opacity-95 transition-opacity"
+          >
+            <div className="max-w-content mx-auto flex items-center justify-center gap-3 sm:gap-6 text-center text-xs sm:text-sm font-medium tracking-wider uppercase">
+              <span className="text-mb-gold font-serif font-bold text-sm sm:text-base tracking-widest">
+                MORYELLE BEAUTÉ
+              </span>
+              <span className="hidden sm:inline text-mb-gold/60">•</span>
+              <span className="font-semibold text-mb-bg">
+                SALE IS LIVE! COMPLIMENTARY SHIPPING &amp; COUTURE GIFT ON ALL ORDERS ABOVE ₹499
+              </span>
+              <span className="hidden md:inline text-mb-gold/60">•</span>
+              <span className="hidden md:inline-flex items-center text-xs px-2.5 py-0.5 rounded-full border border-mb-gold text-mb-gold">
+                EXPLORE NOW →
+              </span>
             </div>
-          </div>
+          </Link>
         </div>
 
-        {/* ═══════════════════════════════════════════════════
-            3. FULL-WIDTH "NEW AT MORYELLE" BANNER
-        ════════════════════════════════════════════════════ */}
-        {wideBanner?.image && (
-          <a href={wideBanner.link || "#"} target="_blank" rel="noreferrer"
-            className="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-nk-accent">
+        {/* 3. Hero Carousel Cards */}
+        <HeroCarousel />
+
+        {/* 4. Discover Categories */}
+        <DiscoverCategories />
+
+        {/* 5. Category Highlights Banner */}
+        <div className="w-full my-4">
+          <Link href="/category/all" className="block w-full">
             <img
-              src={wideBanner.image}
-              alt={wideBanner.alt || wideBanner.title || "New at MORYELLE"}
-              width={1280} height={200} loading="lazy"
-              className="w-full object-cover"
-              style={{ maxHeight: "clamp(80px, 14vw, 200px)" }}
+              src="/brand/logo-primary.png"
+              alt="Trending Category Highlights"
+              className="w-full h-auto object-cover"
             />
-          </a>
-        )}
-
-        {/* ═══════════════════════════════════════════════════
-            4. BRAND HIT LIST — horizontal scroll strip
-            Nykaa: each brand card is landscape ~240×120px
-        ════════════════════════════════════════════════════ */}
-        <div className="bg-white py-4 border-y border-nk-lite">
-          <div className={W}>
-            <SectionTitle>PEEK AT OUR BRAND HIT LIST</SectionTitle>
-            <div className="flex gap-2 overflow-x-auto no-scrollbar pb-1">
-              {brandScrollBanners.map((b: any, i: number) => (
-                <a key={b.id || i} href={b.link || "#"} target="_blank" rel="noreferrer"
-                  className="group flex-shrink-0 relative overflow-hidden bg-nk-bg hover:shadow-md transition-shadow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-nk-accent"
-                  style={{ width: "clamp(160px, 18vw, 240px)", height: "clamp(80px, 9vw, 120px)", borderRadius: "8px" }}>
-                  <img src={b.image} alt={b.alt || b.title || "brand"} width={240} height={120}
-                    loading="lazy"
-                    className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105"
-                  />
-                  {(b.callout || b.title) && (
-                    <div className="absolute bottom-0 inset-x-0 px-2 py-1"
-                      style={{ background: "linear-gradient(to top, rgba(0,0,0,0.55), transparent)" }}>
-                      <p className="text-white text-10 font-semibold truncate">
-                        {(b.callout || b.title).split("|")[0].trim()}
-                      </p>
-                    </div>
-                  )}
-                </a>
-              ))}
-            </div>
-          </div>
+          </Link>
         </div>
 
-        {/* ═══════════════════════════════════════════════════
-            5. FEATURED PRODUCTS GRID
-        ════════════════════════════════════════════════════ */}
-        <ProductGrid />
+        {/* 6. Animated Carousel */}
+        <OfferGifsCarousel />
 
-        {/* ═══════════════════════════════════════════════════
-            6. BRAND SPOTLIGHT — IN THE SPOTLIGHT
-        ════════════════════════════════════════════════════ */}
-        <BrandSpotlight />
+        {/* 7. Top Brands Section */}
+        <TopBrandsSection />
 
-        {/* ═══════════════════════════════════════════════════
-            7. EXCLUSIVE RELEASES — horizontal scroll strip
-        ════════════════════════════════════════════════════ */}
-        {collectionBanners.length > 0 && (
-          <div className="bg-white py-4 border-t border-nk-lite">
-            <div className={W}>
-              <SectionTitle>MORYELLE EXCLUSIVE RELEASES</SectionTitle>
-              <div className="flex gap-2 overflow-x-auto no-scrollbar pb-1">
-                {collectionBanners.map((b: any, i: number) => (
-                  <a key={b.id || i} href={b.link || "#"} target="_blank" rel="noreferrer"
-                    className="group flex-shrink-0 overflow-hidden bg-nk-bg hover:shadow-md transition-shadow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-nk-accent"
-                    style={{ width: "clamp(120px, 13vw, 170px)", borderRadius: "8px" }}>
-                    <div style={{ paddingTop: "100%", position: "relative" }}>
-                      <img src={b.image} alt={b.alt || b.title || "collection"} width={170} height={170}
-                        loading="lazy"
-                        className="absolute inset-0 w-full h-full object-contain transition-transform duration-300 group-hover:scale-105"
-                      />
-                    </div>
-                    {(b.callout || b.title) && (
-                      <p className="px-2 py-1 text-10 font-medium text-nk-text truncate text-center">
-                        {(b.callout || b.title).split("|")[0].trim()}
-                      </p>
-                    )}
-                  </a>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
+        {/* 8. Unmissable Offers */}
+        <UnmissableOffers />
 
-        {/* ═══════════════════════════════════════════════════
-            8. HEALTH & WELLNESS + GIFTING
-        ════════════════════════════════════════════════════ */}
-        <ProductSections />
+        {/* 9. Save On Sunscreens */}
+        <SaveOnSunscreens />
 
-        {/* ═══════════════════════════════════════════════════
-            9. OFFERS + EDITORIAL
-        ════════════════════════════════════════════════════ */}
-        <PromoGrid />
+        {/* 10. Hot List Icons */}
+        <HotListProducts />
 
+        {/* 11. In The Spotlight */}
+        <SpotlightSection />
+
+        {/* 12. On Our Radar */}
+        <RadarSection />
+
+        {/* 13. Bottom Feature Banner */}
+        <div className="w-full my-8">
+          <Link href="/category/all" className="block w-full">
+            <img
+              src="/brand/logo-gold.png"
+              alt="Moryelle Beauté Online Destination"
+              className="w-full h-auto object-cover"
+            />
+          </Link>
+        </div>
+
+        {/* 14. Store Brand Statement */}
+        <div className="w-full px-4 sm:px-6 py-14 text-center bg-mb-surface border-t border-mb-border">
+          <h2 className="font-serif text-3xl sm:text-4xl font-semibold text-mb-primary mb-2">
+            Moryelle Beauté
+          </h2>
+          <p className="text-xs sm:text-sm font-light text-mb-muted uppercase tracking-[0.3em]">
+            Beauty Beyond Today
+          </p>
+        </div>
       </main>
+
+      {/* Floating Widgets */}
+      {/* 1. App Promotion QR Widget (Bottom-Left) */}
+      {showAppBanner && (
+        <aside
+          aria-label="App Download Promotion"
+          className="fixed bottom-5 left-5 z-40 hidden md:flex items-center gap-3 bg-mb-surface p-3.5 rounded-[12px] shadow-dropdown border border-mb-border animate-fade-in"
+        >
+          <div className="w-12 h-12 bg-mb-bg border border-mb-border rounded-[8px] p-1 flex items-center justify-center flex-shrink-0">
+            <svg viewBox="0 0 24 24" className="w-full h-full text-mb-primary" fill="currentColor">
+              <path d="M2 2h8v8H2V2zm2 2v4h4V4H4zm10-2h8v8h-8V2zm2 2v4h4V4h-4zM2 14h8v8H2v-8zm2 2v4h4v-4H4zm14 0h-4v2h2v2h-2v2h4v-2h2v-2h-2v-2zm-2-2h4v2h-4v-2zm2 6h2v2h-2v-2z" />
+            </svg>
+          </div>
+          <div className="text-left pr-2">
+            <p className="font-serif text-xs font-semibold text-mb-text leading-tight">Exclusive Offers On App</p>
+            <p className="text-[11px] text-mb-muted leading-snug">Enjoy 20% off your initial order</p>
+          </div>
+          <button
+            type="button"
+            onClick={() => setShowAppBanner(false)}
+            aria-label="Dismiss app download banner"
+            className="text-mb-placeholder hover:text-mb-primary text-sm font-bold p-1 leading-none rounded hover:bg-mb-bg"
+          >
+            ✕
+          </button>
+        </aside>
+      )}
+
+      {/* 2. Customer Care Help Pill (Bottom-Right) */}
+      <aside aria-label="Customer Concierge Help" className="fixed bottom-5 right-5 z-40">
+        <button
+          type="button"
+          onClick={() => alert("Moryelle Beauté Concierge: Our advisors are available daily, 8 AM - 10 PM. Call 1800-267-4444 or email concierge@moryelle.com")}
+          className="flex items-center gap-2.5 bg-mb-surface px-4 py-3 rounded-full shadow-dropdown border border-mb-border hover:border-mb-accent hover:shadow-xl transition-all group cursor-pointer"
+        >
+          <svg
+            className="w-4 h-4 text-mb-accent group-hover:scale-110 transition-transform"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M3 18v-6a9 9 0 0 1 18 0v6" />
+            <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z" />
+          </svg>
+          <span className="text-xs font-semibold text-mb-text group-hover:text-mb-primary transition-colors">
+            How may we assist you?
+          </span>
+        </button>
+      </aside>
+
+      {/* 15. Footer (Moryelle Beauté) */}
       <Footer />
     </>
   );

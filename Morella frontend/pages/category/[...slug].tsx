@@ -1,20 +1,7 @@
-/**
- * Category PLP — exact Nykaa layout from Playwright MCP snapshots:
- *
- * navigation "Breadcrumb" → "Home ❯ Makeup"
- * h1: "Buy [Category] Products Online, N products available"
- * heading "All Products" [level=2]
- * layout: navigation "Side" (left) | product grid (right)
- *
- * Sidebar filters from snapshot:
- *   Sort By: popularity
- *   Brand | Price | Category | Discount | Avg Customer Rating |
- *   Country Of Origin | Gender | Preference | Color | Formulation |
- *   Finish | Skin type | Benefits | Ingredient | Concern | Coverage | Pack Size
- */
 import React, { useState, useMemo } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import ProductCard from "@/components/ProductCard";
@@ -23,8 +10,8 @@ import { products } from "@/components/ProductGrid";
 /* ── Filter sidebar config ────────────────────────────────────── */
 const FILTER_GROUPS = [
   "Brand", "Price", "Category", "Discount", "Avg Customer Rating",
-  "Country Of Origin", "Gender", "Preference", "Color", "Formulation",
-  "Finish", "Skin type", "Benefits", "Ingredient", "Concern", "Coverage", "Pack Size",
+  "Country Of Origin", "Preference", "Formulation",
+  "Finish", "Skin type", "Benefits", "Ingredient", "Concern"
 ];
 
 const SORT_OPTIONS = [
@@ -40,7 +27,7 @@ const SORT_OPTIONS = [
 const ChevronDown = ({ open }: { open: boolean }) => (
   <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
     strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"
-    className={`transition-transform ${open ? "rotate-180" : ""}`}>
+    className={`transition-transform duration-200 ${open ? "rotate-180" : ""}`}>
     <polyline points="6 9 12 15 18 9" />
   </svg>
 );
@@ -49,19 +36,18 @@ const ChevronDown = ({ open }: { open: boolean }) => (
 function FilterGroup({ label }: { label: string }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className="border-b border-[#F4F4F4]">
+    <div className="border-b border-mb-border-lite last:border-b-0">
       <button
         type="button"
         aria-expanded={open}
         onClick={() => setOpen(v => !v)}
-        className="w-full flex items-center justify-between px-3 py-2.5 text-[12px] font-medium text-[#000000] hover:text-[#E80071] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#E80071]">
+        className="w-full flex items-center justify-between px-4 py-3 text-xs font-semibold text-mb-text hover:text-mb-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-mb-accent">
         {label}
         <ChevronDown open={open} />
       </button>
-      {/* Filter content placeholder — collapsed by default */}
       {open && (
-        <div className="px-3 pb-3 text-[11px] text-[#999]">
-          No filters available for this category.
+        <div className="px-4 pb-3 text-xs text-mb-muted">
+          All options active for this collection.
         </div>
       )}
     </div>
@@ -77,11 +63,10 @@ export default function Category() {
   const categorySlug = Array.isArray(slug) ? slug[0] : slug ?? "all";
   const searchQuery = typeof q === "string" ? q.trim().toLowerCase() : "";
 
-  /* "Buy Makeup Products Online" — Nykaa h1 pattern */
   const categoryDisplay = searchQuery
     ? `Results for "${q}"`
     : categorySlug === "all"
-    ? "All"
+    ? "All Creations"
     : categorySlug.split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
 
   const baseProducts = useMemo(() => {
@@ -115,69 +100,68 @@ export default function Category() {
 
   return (
     <>
+      <Head>
+        <title>{categoryDisplay} | Moryelle Beauté</title>
+      </Head>
       <Header />
-      <main id="main-content" className="min-h-screen bg-[#F4F4F4]">
-        <div className="mx-auto max-w-[1280px] px-4 md:px-6 py-4">
+      <main id="main-content" className="min-h-screen bg-mb-bg py-8">
+        <div className="mx-auto max-w-[1280px] px-4 md:px-6">
 
-          {/* navigation "Breadcrumb" — "Home ❯ Makeup" from snapshot */}
-          <nav aria-label="Breadcrumb" className="mb-3">
-            <ol className="flex items-center gap-1 text-[12px] text-[#595E63]" role="list">
+          {/* Breadcrumb */}
+          <nav aria-label="Breadcrumb" className="mb-4">
+            <ol className="flex items-center gap-2 text-xs text-mb-muted" role="list">
               <li role="listitem">
-                <Link href="/" className="hover:text-[#E80071] hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#E80071] rounded">
+                <Link href="/" className="hover:text-mb-primary transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-mb-accent rounded">
                   Home
                 </Link>
               </li>
-              <li role="listitem" aria-hidden="true" className="text-[#999]">❯</li>
-              <li role="listitem" className="text-[#000000] font-medium capitalize" aria-current="page">
+              <li role="listitem" aria-hidden="true" className="text-mb-dusty">/</li>
+              <li role="listitem" className="text-mb-text font-semibold capitalize" aria-current="page">
                 {categoryDisplay}
               </li>
             </ol>
           </nav>
 
-          {/* h1 "Buy Makeup Products Online, N products available" — from snapshot */}
-          <div className="mb-1">
-            <h1 className="text-[16px] font-semibold text-[#000000]">
-              Buy {categoryDisplay} Products Online
-              <span aria-hidden="true" className="text-[14px] font-normal text-[#999] ml-1">
-                ({sorted.length})
+          {/* Category Title */}
+          <div className="mb-6">
+            <h1 className="font-serif text-2xl sm:text-3xl font-semibold text-mb-text">
+              {categoryDisplay}
+              <span aria-hidden="true" className="font-sans text-sm font-normal text-mb-muted ml-2">
+                ({sorted.length} {sorted.length === 1 ? "creation" : "creations"})
               </span>
-              <span className="sr-only"> — {sorted.length} products available</span>
             </h1>
           </div>
 
-          {/* heading "All Products" [level=2] — from snapshot */}
-          <h2 className="text-[13px] font-medium text-[#000000] mb-3">All Products</h2>
+          {/* ── Main layout: filters sidebar + product grid ── */}
+          <div className="flex gap-6 items-start">
 
-          {/* ── Main layout: navigation "Side" + product grid ── */}
-          <div className="flex gap-4 items-start">
-
-            {/* navigation "Side" — left sidebar from snapshot */}
+            {/* Sidebar Filters */}
             <nav
               aria-label="Side navigation — filters"
-              className="hidden md:block flex-shrink-0 bg-white border border-[#E8E8E8]"
-              style={{ width: "200px", minWidth: "200px" }}>
+              className="hidden md:block flex-shrink-0 bg-mb-surface border border-mb-border rounded-[14px] shadow-card overflow-hidden"
+              style={{ width: "230px", minWidth: "230px" }}>
 
-              {/* Sort By button — "Sort By : popularity" from snapshot */}
-              <div className="border-b border-[#E8E8E8]">
+              {/* Sort By selector */}
+              <div className="border-b border-mb-border p-3">
                 <div className="relative">
                   <button
                     type="button"
                     aria-expanded={sortOpen}
                     aria-label={`Sort By: ${SORT_OPTIONS.find(o => o.value === sortBy)?.label}`}
                     onClick={() => setSortOpen(v => !v)}
-                    className="w-full flex items-center justify-between px-3 py-2.5 text-[12px] font-semibold text-[#000000] hover:text-[#E80071] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#E80071]">
-                    <span>Sort By : <span className="font-normal">{SORT_OPTIONS.find(o => o.value === sortBy)?.label}</span></span>
+                    className="w-full flex items-center justify-between px-3 py-2 text-xs font-semibold text-mb-text bg-mb-bg border border-mb-border rounded-[8px] hover:border-mb-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mb-accent">
+                    <span>Sort: <span className="font-normal text-mb-body">{SORT_OPTIONS.find(o => o.value === sortBy)?.label}</span></span>
                     <ChevronDown open={sortOpen} />
                   </button>
                   {sortOpen && (
-                    <div className="absolute left-0 top-full w-full bg-white border border-[#E8E8E8] z-20 shadow-sm">
+                    <div className="absolute left-0 top-full mt-1 w-full bg-mb-bg border border-mb-border rounded-[8px] z-30 shadow-dropdown overflow-hidden">
                       {SORT_OPTIONS.map(o => (
                         <button
                           key={o.value}
                           type="button"
                           onClick={() => { setSortBy(o.value); setSortOpen(false); }}
-                          className={`w-full text-left px-3 py-2 text-[12px] hover:bg-[#F4F4F4] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#E80071] ${
-                            sortBy === o.value ? "text-[#E80071] font-semibold" : "text-[#000000]"
+                          className={`w-full text-left px-3 py-2 text-xs transition-colors hover:bg-mb-surface ${
+                            sortBy === o.value ? "text-mb-primary font-bold bg-mb-surface" : "text-mb-text font-medium"
                           }`}>
                           {o.label}
                         </button>
@@ -187,7 +171,7 @@ export default function Category() {
                 </div>
               </div>
 
-              {/* Filter accordion groups from snapshot */}
+              {/* Filter accordion groups */}
               {FILTER_GROUPS.map(label => (
                 <FilterGroup key={label} label={label} />
               ))}
@@ -197,12 +181,12 @@ export default function Category() {
             <div className="flex-1 min-w-0">
 
               {/* Mobile sort bar */}
-              <div className="md:hidden flex items-center justify-between bg-white border border-[#E8E8E8] px-3 py-2 mb-3">
-                <label htmlFor="mobile-sort" className="text-[12px] text-[#595E63] font-medium">
-                  Sort:
+              <div className="md:hidden flex items-center justify-between bg-mb-surface border border-mb-border rounded-[10px] px-4 py-2.5 mb-4 shadow-card">
+                <label htmlFor="mobile-sort" className="text-xs text-mb-body font-semibold">
+                  Sort By:
                 </label>
                 <select id="mobile-sort" name="sort" value={sortBy} onChange={e => setSortBy(e.target.value)}
-                  className="text-[12px] border-0 outline-none bg-transparent text-[#000000] font-semibold cursor-pointer">
+                  className="text-xs border-0 outline-none bg-transparent text-mb-primary font-bold cursor-pointer">
                   {SORT_OPTIONS.map(o => (
                     <option key={o.value} value={o.value}>{o.label}</option>
                   ))}
@@ -210,16 +194,15 @@ export default function Category() {
               </div>
 
               {sorted.length === 0 ? (
-                <div className="bg-white border border-[#E8E8E8] p-12 text-center">
-                  <p className="text-[13px] text-[#595E63]">No products in "{categoryDisplay}".</p>
-                  <Link href="/" className="inline-block mt-4 text-[13px] font-medium text-[#E80071] hover:underline">
+                <div className="bg-mb-surface border border-mb-border rounded-[14px] shadow-card p-12 text-center">
+                  <p className="text-sm text-mb-body">No products found in &quot;{categoryDisplay}&quot;.</p>
+                  <Link href="/" className="inline-block mt-4 text-xs font-semibold bg-mb-primary text-mb-bg px-6 py-2.5 rounded-[10px] shadow-sm">
                     Back to Home
                   </Link>
                 </div>
               ) : (
-                /* Product grid — 4 cols on desktop matching Nykaa */
                 <div
-                  className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5"
+                  className="grid grid-cols-2 gap-3.5 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4"
                   aria-label={`${categoryDisplay} products`}>
                   {sorted.map(product => (
                     <ProductCard key={product.id} product={product} />

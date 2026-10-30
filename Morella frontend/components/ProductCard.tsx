@@ -1,20 +1,3 @@
-/**
- * ProductCard — exact Nykaa PLP card from Playwright MCP snapshots
- *
- * Snapshot anatomy (f11, f33, f57, f118 series):
- *  article.cursor-pointer
- *   ul > li[BESTSELLER] li[AD] li[NEW] li[FEATURED]  ← absolute top-left
- *   Link[href=/product/id]
- *     img (square, object-contain, pale bg)
- *     div.info
- *       heading[level=2] ← product name, truncated "..."
- *       div[aria-hidden]  ← ₹discounted ₹MRP X% Off
- *       div (SR text)     ← "Regular price ₹X. Discounted price ₹Y. Z% Off."
- *       p (offer text)    ← "Extra 5% Off" / "Enjoy Complimentary Gift"
- *       div[aria-label="N out of 5 star rating"]  ← green badge + count
- *       div               ← "N shades" + sale price row
- *   div.cta               ← "Add to Bag" / "Added"
- */
 import React from "react";
 import Link from "next/link";
 import { useCart } from "@/context/CartContext";
@@ -35,15 +18,15 @@ export interface Product {
 }
 
 const StarIcon = () => (
-  <svg width="8" height="8" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+  <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
     <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
   </svg>
 );
 
 const HeartIcon = ({ filled }: { filled: boolean }) => (
-  <svg width="13" height="13" viewBox="0 0 24 24"
-    fill={filled ? "#e80071" : "none"}
-    stroke={filled ? "#e80071" : "#aaa"}
+  <svg width="14" height="14" viewBox="0 0 24 24"
+    fill={filled ? "currentColor" : "none"}
+    stroke="currentColor"
     strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
     <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
   </svg>
@@ -58,113 +41,107 @@ export default function ProductCard({ product }: { product: Product }) {
   const onAdd = (e: React.MouseEvent) => { e.preventDefault(); e.stopPropagation(); addItem(product); };
   const onWish = (e: React.MouseEvent) => { e.preventDefault(); e.stopPropagation(); toggleWishlist(product); };
 
-  /* Nykaa "Sale Price" secondary row — slightly deeper discount */
   const salePrice = product.discount
     ? Math.round(product.price * (1 - (product.discount * 0.12) / 100))
     : null;
 
   return (
-    <article className="group relative flex flex-col bg-white border border-nk-lite hover:shadow-sm transition-shadow"
-      style={{ borderRadius: 0 }}>
+    <article className="group relative flex flex-col bg-mb-surface border border-mb-border rounded-[12px] shadow-card hover:shadow-dropdown transition-all overflow-hidden">
 
-      {/* ── Badges [BESTSELLER / NEW / FEATURED / AD] ─────────── */}
+      {/* ── Badges [BESTSELLER / NEW / FEATURED] ───────────────── */}
       {(product.badge || (product.discount && product.discount > 10)) && (
-        <ul className="absolute top-1.5 left-1.5 z-10 flex flex-col gap-0.5" role="list" aria-label="Badges">
+        <ul className="absolute top-2.5 left-2.5 z-10 flex flex-col gap-1" role="list" aria-label="Badges">
           {product.discount && product.discount > 10 && (
             <li role="listitem"
-              className="bg-white border border-nk-border text-9 font-bold uppercase px-1 py-0.5 leading-tight text-nk-text">
+              className="bg-mb-gold-deep text-mb-bg text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-[4px] shadow-sm">
               BESTSELLER
             </li>
           )}
           {product.badge && (
             <li role="listitem"
-              className="bg-white border border-nk-border text-9 font-bold uppercase px-1 py-0.5 leading-tight text-nk-accent">
+              className="bg-mb-primary text-mb-bg text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-[4px] shadow-sm">
               {product.badge}
             </li>
           )}
         </ul>
       )}
 
-      {/* ── Wishlist (hover) ──────────────────────────────────── */}
+      {/* ── Wishlist button ────────────────────────────────────── */}
       <button type="button"
         aria-label={wishlisted ? `Remove ${product.name} from wishlist` : `Add ${product.name} to wishlist`}
         aria-pressed={wishlisted}
         onClick={onWish}
-        className="absolute top-1.5 right-1.5 z-10 w-6 h-6 flex items-center justify-center bg-white rounded-full shadow-sm opacity-0 group-hover:opacity-100 focus-visible:opacity-100 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-nk-accent">
+        className="absolute top-2.5 right-2.5 z-10 w-7 h-7 flex items-center justify-center bg-mb-bg border border-mb-border text-mb-accent hover:text-mb-primary rounded-full shadow-sm transition-transform hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mb-accent">
         <HeartIcon filled={wishlisted} />
       </button>
 
-      {/* ── Link: image + info ────────────────────────────────── */}
+      {/* ── Link: image + details ──────────────────────────────── */}
       <Link href={`/product/${product.id}`}
         aria-label={`${product.brand} ${product.name}, ₹${product.price.toLocaleString()}`}
-        className="flex flex-col flex-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-nk-accent">
+        className="flex flex-col flex-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-mb-accent">
 
-        {/* Square image */}
-        <div className="relative bg-white overflow-hidden" style={{ paddingTop: "100%" }}>
+        {/* Product image */}
+        <div className="relative bg-mb-surface overflow-hidden aspect-square flex items-center justify-center p-3">
           <img src={product.image} alt={product.name}
-            width={220} height={220} loading="lazy"
-            className="absolute inset-0 w-full h-full object-contain p-2 transition-transform duration-300 group-hover:scale-105"
+            loading="lazy"
+            className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
           />
         </div>
 
         {/* Info block */}
-        <div className="flex flex-col flex-1 px-2 pt-1.5 pb-1">
+        <div className="flex flex-col flex-1 p-3 pt-2">
 
-          {/* Brand — 10px uppercase muted */}
-          <p className="text-10 font-semibold text-nk-muted uppercase tracking-wide truncate mb-0.5">
+          {/* Brand — Jost uppercase light tracking */}
+          <p className="text-[11px] font-medium text-mb-muted uppercase tracking-[0.15em] truncate mb-1">
             {product.brand}
           </p>
 
-          {/* heading[level=2] — truncated */}
-          <h2 className="text-12 font-normal text-nk-text line-clamp-2 mb-1"
-            style={{ minHeight: "32px", lineHeight: "1.3" }}
+          {/* Title — Luxury Serif */}
+          <h2 className="font-serif text-[14px] font-semibold text-mb-text line-clamp-2 mb-1.5 leading-snug"
             title={product.name}>
             {product.name}
           </h2>
 
-          {/* Prices — aria-hidden visual row */}
-          <div aria-hidden="true" className="flex items-baseline gap-1 flex-wrap mb-0.5">
-            <span className="text-12 font-medium text-nk-text">
+          {/* Prices */}
+          <div aria-hidden="true" className="flex items-baseline gap-2 flex-wrap mb-1.5">
+            <span className="text-[14px] font-bold text-mb-text">
               ₹{product.price.toLocaleString()}
             </span>
             {product.originalPrice && (
-              <span className="text-11 text-nk-dim line-through">
+              <span className="text-[12px] text-mb-muted line-through">
                 ₹{product.originalPrice.toLocaleString()}
               </span>
             )}
             {product.discount && (
-              <span className="text-11 text-nk-accent font-medium">
+              <span className="text-[11px] text-mb-accent-deep font-bold">
                 {product.discount}% Off
               </span>
             )}
           </div>
 
-          {/* SR-only accessible price — "Regular price ₹X. Discounted price ₹Y. Z% Off." */}
           <span className="sr-only">
             {product.originalPrice
               ? `Regular price ₹${product.originalPrice.toLocaleString()}. Discounted price ₹${product.price.toLocaleString()}. ${product.discount}% Off.`
               : `Price ₹${product.price.toLocaleString()}.`}
           </span>
 
-          {/* Star rating — green badge exactly like Nykaa */}
-          <div className="flex items-center gap-1 mb-1"
+          {/* Star rating — Gold Deep badge */}
+          <div className="flex items-center gap-1.5 mb-2"
             aria-label={`${product.rating} out of 5 star rating`}>
-            <span className="flex items-center gap-0.5 text-white text-10 font-semibold px-1 py-0.5 leading-none"
-              style={{ backgroundColor: "#388e3c", borderRadius: "2px" }}>
+            <span className="flex items-center gap-1 bg-mb-gold-deep text-mb-bg text-[10px] font-bold px-1.5 py-0.5 rounded-[4px] leading-none">
               {product.rating} <StarIcon />
             </span>
-            <span className="text-10 text-nk-dim">
-              ( {product.reviewCount.toLocaleString()} )
+            <span className="text-[11px] text-mb-muted">
+              ({product.reviewCount.toLocaleString()})
             </span>
           </div>
 
           {/* Sale price secondary row */}
           {salePrice && product.discount && (
-            <div className="flex items-center gap-1 px-1.5 py-1 mt-auto"
-              style={{ backgroundColor: "#fff3cd", borderRadius: "2px" }}>
-              <span className="text-9 text-nk-muted whitespace-nowrap">Sale Price</span>
-              <span className="text-11 font-semibold text-nk-text">₹{salePrice.toLocaleString()}</span>
-              <span className="text-9 text-nk-accent font-semibold">
+            <div className="flex items-center gap-1.5 px-2 py-1 mt-auto bg-mb-bg border border-mb-border-lite rounded-[6px]">
+              <span className="text-[10px] text-mb-muted uppercase tracking-wider">Sale</span>
+              <span className="text-[12px] font-bold text-mb-text">₹{salePrice.toLocaleString()}</span>
+              <span className="text-[10px] text-mb-accent-deep font-semibold">
                 {Math.min(product.discount + 5, 65)}% Off
               </span>
             </div>
@@ -172,18 +149,17 @@ export default function ProductCard({ product }: { product: Product }) {
         </div>
       </Link>
 
-      {/* ── Add to Bag ────────────────────────────────────────── */}
-      <div className="px-2 pb-2 pt-0.5">
+      {/* ── Add to Bag CTA ─────────────────────────────────────── */}
+      <div className="p-3 pt-0">
         <button type="button"
           aria-label={inCart ? `${product.name} added to bag` : `Add ${product.name} to bag`}
           onClick={onAdd}
-          className={`w-full py-1.5 text-11 font-semibold border transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:ring-nk-accent ${
+          className={`w-full py-2 text-[12px] font-semibold rounded-[10px] transition-all shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:ring-mb-accent ${
             inCart
-              ? "bg-nk-accent border-nk-accent text-white"
-              : "border-nk-accent text-nk-accent hover:bg-nk-accent hover:text-white"
-          }`}
-          style={{ borderRadius: "2px" }}>
-          {inCart ? "✓ Added" : "Add to Bag"}
+              ? "bg-mb-primary text-mb-bg border border-mb-primary"
+              : "bg-mb-primary hover:bg-mb-primary-hover text-mb-bg"
+          }`}>
+          {inCart ? "✓ Added to Bag" : "Add to Bag"}
         </button>
       </div>
 
