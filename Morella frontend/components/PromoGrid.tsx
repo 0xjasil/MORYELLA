@@ -1,123 +1,104 @@
 import React from "react";
+import Link from "next/link";
+import bannersData from "@/banners.json";
 
-const promoBanners = [
-  "Up To 20% Off Gifts At cart!",
-  "Up To 10% Off!",
-  "Flat 10% Off!",
-  "Get 15% Off on 5000",
-  "Flat 10% Off!",
-  "Shop New Launches!",
-  "Free Gifts on Orders*",
-  "HAPPY DIWALI Free Gifts on Orders*",
-  "Limited Time! Buy 2 Get 1 Free",
-  "Free Gifts on ₹999+",
-  "Luxe Gift On all Orders!",
-  "The Bold New Libre Shop Now!",
-  "Popular This Season",
-  "Flat 25% Off",
-  "One Tint, 3 Ways!",
-  "Bestsellers!",
-  "Gifts On All Orders",
-  "Timeless Elegance Starting ₹2600",
-  "Gifts on Orders Above ₹3500",
-  "Upto 15% Off On Urban Decay",
-  "Free Mini on Mini!",
-  "2-pc kit on ₹3600!",
-  "Up To 40% Off On Your Favourite Stacks!",
+const allBanners = bannersData as any[];
+const offerBanners   = allBanners.filter(b => b.image && Number(b.id?.split("-")[1]) >= 30 && Number(b.id?.split("-")[1]) <= 60).slice(0, 8);
+const editBanners    = allBanners.filter(b => b.image && Number(b.id?.split("-")[1]) >= 60 && Number(b.id?.split("-")[1]) <= 75).slice(0, 8);
+
+const OFFERS = [
+  { text: "Up To 20% Off Gifts",    href: "/category/gifting"           },
+  { text: "Flat 10% Off Skincare",  href: "/category/skincare"          },
+  { text: "Buy 2 Get 1 Free",       href: "/"                           },
+  { text: "Free Gifts on ₹999+",    href: "/"                           },
+  { text: "Luxe Gift All Orders",   href: "/category/luxe"              },
+  { text: "Flat 25% Fragrance",     href: "/category/fragrance"         },
+  { text: "40% Off Hair Care",      href: "/category/hair"              },
+  { text: "30% Off Bestsellers",    href: "/"                           },
 ];
 
-const editorialSections = [
-  "The 9-to-5 Edit",
-  "Serving Now: Mocha Mousse",
-  "Viral Beauty Essentials",
-  "Bonjour, French Pharmacy",
-  "Your No Makeup, Makeup Edit",
-  "The College Beauty Guide",
-  "Exam Survival Guide",
-  "Skincare For All St(ages)",
+const EDITORIAL = [
+  "The 9-to-5 Edit",        "Serving: Mocha Mousse",
+  "Viral Beauty Essentials", "Bonjour, French Pharmacy",
+  "No Makeup, Makeup",       "College Beauty Guide",
+  "Exam Survival Guide",     "Skincare For All Ages",
 ];
 
-const morePromos = [
-  "Up To 20% Off On Haircare",
-  "AHA BHA Lotion For Strawberry Skin",
-  "Upto 30% Off On Snail Glow",
-  "Upto 25% Off On Bestsellers!!",
-  "Up To 30% On Entire Range",
-  "Floral Tech Now In India",
-  "Upto 40% Off Glow From Within",
-  "Upto 35% off On Bestsellers!",
-  "Nourish & Glow Everyday Body Care",
-  "Hottest Drop! Elle 18 Butter Matte",
-  "Up to 10% off On Entire Brand",
-  "Extra 10% Off Only on MORYELLE*",
-  "100% Vegan Hair Ritual",
-  "Buy 1, Get 1 On Bestseller",
-  "Hyaluron Anti-Ageing Range",
-  "Starting @249 Lean Body Support",
-  "Beauty Trendsetters",
-  "Flat 20% Buy3 Get1",
-  "New Launch",
-  "Up To 50% Buy1 Get1",
-  "Up To 20% New Launch",
-  "New Launch",
-];
+function SectionTitle({ children }: { children: React.ReactNode }) {
+  return (
+    <h2 className="text-center text-12 font-semibold text-nk-text uppercase tracking-widest mb-3 flex items-center justify-center gap-2">
+      <span className="text-nk-accent" aria-hidden="true">✦</span>
+      {children}
+      <span className="text-nk-accent" aria-hidden="true">✦</span>
+    </h2>
+  );
+}
+
+function ImageTile({ image, label, href, aspect = "2/1" }: {
+  image?: string; label: string; href: string; aspect?: string;
+}) {
+  return (
+    <Link href={href}
+      className="group relative overflow-hidden bg-nk-bg hover:shadow-md transition-shadow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-nk-accent"
+      style={{ aspectRatio: aspect, borderRadius: "8px" }}>
+      {image ? (
+        <img src={image} alt={label} width={300} height={150} loading="lazy"
+          className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105"
+        />
+      ) : (
+        <div className="w-full h-full bg-nk-pink flex items-center justify-center p-3">
+          <p className="text-12 font-semibold text-nk-accent text-center">{label}</p>
+        </div>
+      )}
+      <div className="absolute bottom-0 inset-x-0 px-2 py-1.5"
+        style={{ background: "linear-gradient(to top, rgba(0,0,0,0.5), transparent)", borderRadius: "0 0 8px 8px" }}>
+        <p className="text-10 font-semibold text-white truncate">{label}</p>
+      </div>
+    </Link>
+  );
+}
 
 export default function PromoGrid() {
   return (
-    <section className="mx-auto max-w-7xl px-[var(--space-6)] py-[var(--space-8)]">
-      {/* Promo banner grid */}
-      <div className="grid grid-cols-2 gap-[var(--space-4)] sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-        {promoBanners.map((text, i) => (
-          <div
-            key={i}
-            className="flex min-h-[80px] items-center justify-center rounded-[var(--radius-lg)] p-[var(--space-4)] text-center shadow-[var(--shadow-sm)] hover:shadow-[var(--shadow-md)] transition-shadow cursor-pointer"
-            style={{ backgroundColor: i % 3 === 0 ? "#FFE1F1" : i % 3 === 1 ? "#F3E3BF" : "#CDD3D8" }}
-          >
-            <p className="text-xs font-medium text-[var(--color-text-primary)]">{text}</p>
+    <>
+      {/* Today's Best Offers */}
+      <section className="bg-nk-pink py-4 px-4 md:px-6" aria-label="Today's best offers">
+        <div className="mx-auto max-w-content">
+          <SectionTitle>TODAY'S BEST OFFERS</SectionTitle>
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4">
+            {OFFERS.map((o, i) => (
+              <ImageTile key={i} image={offerBanners[i]?.image} label={o.text} href={o.href} />
+            ))}
           </div>
-        ))}
-      </div>
+        </div>
+      </section>
 
-      {/* Need Help Choosing */}
-      <div className="mt-[var(--space-12)] rounded-[var(--radius-xl)] bg-[var(--color-surface-warm)] p-[var(--space-8)] text-center">
-        <h2 className="text-2xl font-bold text-[var(--color-text-primary)] mb-[var(--space-4)]">
-          Need Help Choosing? Start Here!
-        </h2>
-        <button className="rounded-[var(--radius-lg)] bg-[var(--color-accent)] px-[var(--space-8)] py-[var(--space-3)] text-base font-medium text-white hover:opacity-90">
-          Explore More
-        </button>
-      </div>
-
-      {/* Editorial sections */}
-      <div className="mt-[var(--space-8)]">
-        <h2 className="mb-[var(--space-6)] text-2xl font-bold text-[var(--color-text-primary)]">
-          Curated For You
-        </h2>
-        <div className="grid grid-cols-2 gap-[var(--space-4)] sm:grid-cols-4">
-          {editorialSections.map((title, i) => (
-            <div
-              key={i}
-              className="flex h-[120px] items-center justify-center rounded-[var(--radius-lg)] shadow-[var(--shadow-sm)] hover:shadow-[var(--shadow-md)] transition-shadow cursor-pointer"
-              style={{ backgroundColor: i % 2 === 0 ? "#FFE1F1" : "#F3E3BF" }}
-            >
-              <p className="text-sm font-semibold text-[var(--color-text-primary)]">{title}</p>
-            </div>
-          ))}
+      {/* Help CTA */}
+      <div className="bg-white border-y border-nk-lite py-4 px-4 md:px-6">
+        <div className="mx-auto max-w-content flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div>
+            <p className="text-14 font-semibold text-nk-text">Not sure what to pick?</p>
+            <p className="text-12 text-nk-muted">Let us guide you to your perfect beauty match</p>
+          </div>
+          <Link href="/category/skincare"
+            className="flex-shrink-0 bg-nk-accent text-white text-12 font-semibold px-5 py-2 hover:opacity-90 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-nk-accent"
+            style={{ borderRadius: "4px" }}>
+            Explore All Beauty →
+          </Link>
         </div>
       </div>
 
-      {/* More promo grid */}
-      <div className="mt-[var(--space-8)] grid grid-cols-2 gap-[var(--space-4)] sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-        {morePromos.map((text, i) => (
-          <div
-            key={i}
-            className="flex min-h-[80px] items-center justify-center rounded-[var(--radius-lg)] p-[var(--space-4)] text-center shadow-[var(--shadow-sm)] hover:shadow-[var(--shadow-md)] transition-shadow cursor-pointer"
-            style={{ backgroundColor: i % 3 === 0 ? "#CDD3D8" : i % 3 === 1 ? "#FFE1F1" : "#F3E3BF" }}
-          >
-            <p className="text-xs font-medium text-[var(--color-text-primary)]">{text}</p>
+      {/* Curated For You editorial */}
+      <section className="bg-white py-4 px-4 md:px-6" aria-label="Curated editorial">
+        <div className="mx-auto max-w-content">
+          <SectionTitle>CURATED FOR YOU</SectionTitle>
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4">
+            {EDITORIAL.map((title, i) => (
+              <ImageTile key={i} image={editBanners[i]?.image} label={title} href="/" />
+            ))}
           </div>
-        ))}
-      </div>
-    </section>
+        </div>
+      </section>
+    </>
   );
 }

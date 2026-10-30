@@ -1,166 +1,128 @@
+/**
+ * BrandSpotlight — "IN THE SPOTLIGHT" section
+ * Nykaa pattern: landscape brand tiles with product image + brand name + deal text
+ * Each tile scrolls horizontally with hover scale effect
+ */
 import React from "react";
+import Link from "next/link";
+import bannersData from "@/banners.json";
 
-const spotlightBrands = [
-  { name: "Fenty Beauty", desc: "In The Spotlight" },
-  { name: "Anomaly", desc: "Clean, Refreshed Scalp" },
-  { name: "Elemis", desc: "#1 British Luxury Skincare" },
-  { name: "ICONIC London", desc: "Get The World Famous Glow" },
-  { name: "FOREO", desc: "free gifts on bestselling ranges!" },
-  { name: "Virtue", desc: "Science Backed & Smart Hair Care" },
-  { name: "PIXI", desc: "Twist. Swipe. Glow." },
-  { name: "NuFace", desc: "Discover The Best Of Facial Tools!" },
-  { name: "Sol de Janeiro", desc: "Two Icons, One Obsession!" },
-  { name: "PAT McGRATH LABS", desc: "Couture Colour" },
-  { name: "Color Wow", desc: "Get Gorgeous Hair Everyday!" },
-  { name: "Tangle Teezer", desc: "Your Go-To Hair Detangling Heroes!" },
+const allBanners = bannersData as any[];
+
+/* Brand images from banners.json IDs 8-50 */
+const brandImages = allBanners
+  .filter(b => b.image && Number(b.id?.split("-")[1]) >= 8 && Number(b.id?.split("-")[1]) <= 50)
+  .slice(0, 12);
+
+const BRANDS = [
+  { name: "L'Oréal Paris",   slug: "loreal-paris",  deal: "Up To 55% Off"  },
+  { name: "Maybelline",       slug: "maybelline",     deal: "Up To 50% Off"  },
+  { name: "Lakmé",            slug: "lakme",          deal: "Up To 60% Off"  },
+  { name: "MORYELLE",         slug: "moryelle",       deal: "Up To 40% Off"  },
+  { name: "Fenty Beauty",     slug: "fenty-beauty",   deal: "New Launch"     },
+  { name: "Biotique",         slug: "biotique",       deal: "Up To 50% Off"  },
+  { name: "Mamaearth",        slug: "mamaearth",      deal: "Up To 28% Off"  },
+  { name: "Himalaya",         slug: "himalaya",       deal: "Up To 30% Off"  },
+  { name: "PIXI",             slug: "pixi",           deal: "Up To 35% Off"  },
+  { name: "NuFace",           slug: "nuface",         deal: "Best Facial Tools" },
+  { name: "Sol de Janeiro",   slug: "sol-de-janeiro", deal: "Two Icons, One Obsession" },
+  { name: "PAT McGRATH",      slug: "pat-mcgrath",    deal: "Couture Colour"  },
 ];
 
-const luxeBrands = [
-  { name: "PIXI", desc: "Twist. Swipe. Glow." },
-  { name: "NuFace", desc: "Discover The Best Of Facial Tools!" },
-  { name: "Sol de Janeiro", desc: "Two Icons, One Obsession!" },
-  { name: "PAT McGRATH LABS", desc: "Couture Colour" },
-  { name: "Color Wow", desc: "Get Gorgeous Hair Everyday!" },
-  { name: "Tangle Teezer", desc: "Your Go-To Hair Detangling Heroes!" },
-];
-
-const newLaunchBrands = [
-  { name: "Espressoh", desc: "Flat 10% Off! Caffeinated Makeup Made In Italy" },
-  { name: "Natasha Moor", desc: "Unlock The #MoorMagic, No KYC Required" },
-  { name: "Skin Chemists", desc: "Flat 25% Off! Science Backed Skincare" },
-  { name: "Versed", desc: "Skin Is Complicated. Skincare Shouldn't Be." },
-];
-
-const featuredBrands = [
-  { name: "PMD Beauty", desc: "Find Confidence In Your Skin Today!" },
-  { name: "K-Secret", desc: "Upto 50% Off! + Free Gift On All Orders!" },
-  { name: "Murad", desc: "91% Saw Brighter Skin In 2 Weeks" },
-  { name: "Sally Hansen", desc: "upto 30% on entire range" },
-  { name: "Isntree", desc: "Flat 10% Off! Expert Korean Skincare" },
-  { name: "Fable & Mane", desc: "Award Winning Root Treatment Oil" },
-];
-
-const topBrands = [
-  { name: "Biotique", discount: "Up To 50% Off" },
-  { name: "L'Oréal Paris", discount: "Up To 35% Off" },
-  { name: "Swiss Beauty", discount: "Up To 30% Off" },
-  { name: "Mamaearth", discount: "Up To 28% Off" },
-  { name: "Himalaya", discount: "Up To 30% Off" },
-  { name: "MORYELLE Cosmetics", discount: "Up To 40% Off" },
-];
+function SectionTitle({ children }: { children: React.ReactNode }) {
+  return (
+    <h2 className="text-center text-12 font-semibold text-nk-text uppercase tracking-widest mb-3 flex items-center justify-center gap-2">
+      <span className="text-nk-accent" aria-hidden="true">✦</span>
+      {children}
+      <span className="text-nk-accent" aria-hidden="true">✦</span>
+    </h2>
+  );
+}
 
 export default function BrandSpotlight() {
   return (
-    <section className="mx-auto max-w-7xl px-[var(--space-6)] py-[var(--space-8)]">
-      {/* Exclusive Launch */}
-      <div className="mb-[var(--space-8)] rounded-[var(--radius-xl)] bg-[var(--color-surface-warm)] p-[var(--space-8)] text-center">
-        <span className="mb-[var(--space-2)] inline-block rounded-full bg-[var(--color-accent)] px-[var(--space-4)] py-[var(--space-1)] text-xs font-medium text-white">
-          EXCLUSIVE LAUNCH
-        </span>
-        <h2 className="text-2xl font-bold text-[var(--color-text-primary)] mb-[var(--space-2)]">Fenty Beauty</h2>
-        <p className="text-[var(--color-text-secondary)] mb-[var(--space-4)]">In The Spotlight</p>
-        <button className="rounded-[var(--radius-lg)] bg-[var(--color-accent)] px-[var(--space-8)] py-[var(--space-3)] text-base font-medium text-white hover:opacity-90">
-          Shop Now
-        </button>
-      </div>
+    <section className="bg-nk-bg py-4 px-4 md:px-6 border-t border-nk-lite" aria-label="Brand spotlight">
+      <div className="mx-auto max-w-content">
 
-      {/* In The Spotlight */}
-      <div className="mb-[var(--space-8)]">
-        <h2 className="mb-[var(--space-4)] text-2xl font-bold text-[var(--color-text-primary)]">IN THE SPOTLIGHT</h2>
-        <p className="mb-[var(--space-6)] text-sm text-[var(--color-text-secondary)]">discover top brands</p>
-        <div className="grid grid-cols-2 gap-[var(--space-4)] sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-          {spotlightBrands.map((brand, i) => (
-            <div
-              key={i}
-              className="flex flex-col items-center justify-center rounded-[var(--radius-lg)] bg-[var(--color-bg-white)] p-[var(--space-6)] text-center shadow-[var(--shadow-sm)] hover:shadow-[var(--shadow-md)] transition-shadow cursor-pointer"
-            >
-              <div className="mb-[var(--space-3)] flex h-16 w-16 items-center justify-center rounded-full bg-[var(--color-surface)] text-xs font-bold text-[var(--color-text-primary)]">
-                {brand.name.slice(0, 2).toUpperCase()}
+        {/* Exclusive launch banner */}
+        <div className="mb-4 bg-white border border-nk-lite flex items-center overflow-hidden"
+          style={{ borderRadius: "8px", minHeight: "68px" }}>
+          {brandImages[0]?.image && (
+            <img src={brandImages[0].image} alt="Fenty Beauty"
+              width={140} height={68} loading="lazy"
+              className="h-full flex-shrink-0 object-contain"
+              style={{ width: "clamp(100px, 12vw, 140px)" }}
+            />
+          )}
+          <div className="flex-1 px-4 py-2">
+            <p className="text-10 font-bold uppercase tracking-widest text-nk-accent mb-0.5">Exclusive Launch</p>
+            <p className="text-14 font-semibold text-nk-text">Fenty Beauty</p>
+            <p className="text-12 text-nk-muted">Now available at MORYELLE</p>
+          </div>
+          <Link href="/category/fenty-beauty"
+            className="flex-shrink-0 mr-4 text-12 font-semibold text-nk-accent border border-nk-accent px-3 py-1.5 hover:bg-nk-accent hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-nk-accent"
+            style={{ borderRadius: "2px" }}>
+            Shop Now →
+          </Link>
+        </div>
+
+        {/* IN THE SPOTLIGHT title */}
+        <SectionTitle>IN THE SPOTLIGHT</SectionTitle>
+
+        {/* Brand grid — 4 cols desktop, 2 mobile, landscape 2:1 */}
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4">
+          {BRANDS.slice(0, 8).map((brand, i) => (
+            <Link key={brand.slug} href={`/category/${brand.slug}`}
+              className="group relative overflow-hidden bg-nk-bg hover:shadow-md transition-shadow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-nk-accent"
+              style={{ aspectRatio: "2 / 1", borderRadius: "8px" }}>
+              {brandImages[i]?.image ? (
+                <img src={brandImages[i].image} alt={brand.name}
+                  width={300} height={150} loading="lazy"
+                  className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105"
+                />
+              ) : (
+                <div className="w-full h-full bg-nk-pink flex items-center justify-center">
+                  <span className="text-12 font-bold text-nk-accent">{brand.name}</span>
+                </div>
+              )}
+              <div className="absolute bottom-0 inset-x-0 px-2 py-1.5"
+                style={{ background: "linear-gradient(to top, rgba(0,0,0,0.6), transparent)", borderRadius: "0 0 8px 8px" }}>
+                <p className="text-10 font-bold text-white truncate">{brand.name}</p>
+                <p className="text-9 text-white/80">{brand.deal}</p>
               </div>
-              <h3 className="text-sm font-semibold text-[var(--color-text-primary)]">{brand.name}</h3>
-              <p className="mt-[var(--space-1)] text-xs text-[var(--color-text-secondary)]">{brand.desc}</p>
-            </div>
+            </Link>
           ))}
         </div>
-      </div>
 
-      {/* Luxe Treats */}
-      <div className="mb-[var(--space-8)]">
-        <h2 className="mb-[var(--space-2)] text-2xl font-bold text-[var(--color-text-primary)]">LUXE TREATS</h2>
-        <p className="mb-[var(--space-6)] text-sm text-[var(--color-text-secondary)]">from the premium beauty world</p>
-        <div className="grid grid-cols-2 gap-[var(--space-4)] sm:grid-cols-3 md:grid-cols-6">
-          {luxeBrands.map((brand, i) => (
-            <div
-              key={i}
-              className="flex flex-col items-center justify-center rounded-[var(--radius-lg)] bg-[var(--color-bg-white)] p-[var(--space-4)] text-center shadow-[var(--shadow-sm)] hover:shadow-[var(--shadow-md)] transition-shadow cursor-pointer"
-            >
-              <div className="mb-[var(--space-2)] flex h-12 w-12 items-center justify-center rounded-full bg-[var(--color-surface-warm)] text-xs font-bold text-[var(--color-text-primary)]">
-                {brand.name.slice(0, 2).toUpperCase()}
-              </div>
-              <h3 className="text-xs font-semibold text-[var(--color-text-primary)]">{brand.name}</h3>
-              <p className="mt-[var(--space-1)] text-[10px] text-[var(--color-text-secondary)]">{brand.desc}</p>
-            </div>
-          ))}
+        {/* Top brands row — horizontal scroll strip */}
+        <div className="mt-4">
+          <SectionTitle>TOP BRANDS</SectionTitle>
+          <div className="flex gap-2 overflow-x-auto no-scrollbar pb-1">
+            {BRANDS.map((brand, i) => (
+              <Link key={brand.slug} href={`/category/${brand.slug}`}
+                className="group flex-shrink-0 relative overflow-hidden bg-white border border-nk-lite hover:shadow-sm transition-shadow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-nk-accent"
+                style={{ width: "clamp(110px, 12vw, 150px)", borderRadius: "8px" }}>
+                <div style={{ paddingTop: "70%", position: "relative" }}>
+                  {brandImages[i]?.image ? (
+                    <img src={brandImages[i].image} alt={brand.name}
+                      width={150} height={105} loading="lazy"
+                      className="absolute inset-0 w-full h-full object-contain transition-transform duration-300 group-hover:scale-105"
+                    />
+                  ) : (
+                    <div className="absolute inset-0 bg-nk-pink flex items-center justify-center">
+                      <span className="text-10 font-bold text-nk-accent">{brand.name[0]}</span>
+                    </div>
+                  )}
+                </div>
+                <div className="px-2 pb-2 pt-1">
+                  <p className="text-11 font-semibold text-nk-text truncate">{brand.name}</p>
+                  <p className="text-10 text-nk-accent font-medium">{brand.deal}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
         </div>
-      </div>
 
-      {/* New on Global Store */}
-      <div className="mb-[var(--space-8)]">
-        <h2 className="mb-[var(--space-2)] text-2xl font-bold text-[var(--color-text-primary)]">NEW ON GLOBAL STORE</h2>
-        <p className="mb-[var(--space-6)] text-sm text-[var(--color-text-secondary)]">fresh brands just landed</p>
-        <div className="grid grid-cols-2 gap-[var(--space-4)] sm:grid-cols-4">
-          {newLaunchBrands.map((brand, i) => (
-            <div
-              key={i}
-              className="flex flex-col items-center justify-center rounded-[var(--radius-lg)] bg-[var(--color-bg-white)] p-[var(--space-6)] text-center shadow-[var(--shadow-sm)] hover:shadow-[var(--shadow-md)] transition-shadow cursor-pointer"
-            >
-              <div className="mb-[var(--space-3)] flex h-16 w-16 items-center justify-center rounded-full bg-[var(--color-surface)] text-xs font-bold text-[var(--color-text-primary)]">
-                {brand.name.slice(0, 2).toUpperCase()}
-              </div>
-              <h3 className="text-sm font-semibold text-[var(--color-text-primary)]">{brand.name}</h3>
-              <p className="mt-[var(--space-1)] text-xs text-[var(--color-text-secondary)]">{brand.desc}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Featured Brands */}
-      <div className="mb-[var(--space-8)]">
-        <h2 className="mb-[var(--space-2)] text-2xl font-bold text-[var(--color-text-primary)]">FEATURED BRANDS</h2>
-        <p className="mb-[var(--space-6)] text-sm text-[var(--color-text-secondary)]">deals you can&apos;t scroll past</p>
-        <div className="grid grid-cols-2 gap-[var(--space-4)] sm:grid-cols-3 md:grid-cols-6">
-          {featuredBrands.map((brand, i) => (
-            <div
-              key={i}
-              className="flex flex-col items-center justify-center rounded-[var(--radius-lg)] bg-[var(--color-bg-white)] p-[var(--space-4)] text-center shadow-[var(--shadow-sm)] hover:shadow-[var(--shadow-md)] transition-shadow cursor-pointer"
-            >
-              <div className="mb-[var(--space-2)] flex h-12 w-12 items-center justify-center rounded-full bg-[var(--color-surface-warm)] text-xs font-bold text-[var(--color-text-primary)]">
-                {brand.name.slice(0, 2).toUpperCase()}
-              </div>
-              <h3 className="text-xs font-semibold text-[var(--color-text-primary)]">{brand.name}</h3>
-              <p className="mt-[var(--space-1)] text-[10px] text-[var(--color-text-secondary)]">{brand.desc}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Top Brands */}
-      <div className="mb-[var(--space-8)]">
-        <h2 className="mb-[var(--space-6)] text-2xl font-bold text-[var(--color-text-primary)]">Top Brands</h2>
-        <div className="grid grid-cols-2 gap-[var(--space-4)] sm:grid-cols-3 md:grid-cols-6">
-          {topBrands.map((brand, i) => (
-            <div
-              key={i}
-              className="flex flex-col items-center justify-center rounded-[var(--radius-lg)] bg-[var(--color-bg-white)] p-[var(--space-6)] text-center shadow-[var(--shadow-sm)] hover:shadow-[var(--shadow-md)] transition-shadow cursor-pointer"
-            >
-              <div className="mb-[var(--space-3)] flex h-16 w-16 items-center justify-center rounded-full bg-[var(--color-surface)] text-sm font-bold text-[var(--color-text-primary)]">
-                {brand.name.slice(0, 2).toUpperCase()}
-              </div>
-              <h3 className="text-sm font-semibold text-[var(--color-text-primary)]">{brand.name}</h3>
-              <p className="mt-[var(--space-1)] text-xs font-medium text-[var(--color-accent)]">{brand.discount}</p>
-            </div>
-          ))}
-        </div>
       </div>
     </section>
   );

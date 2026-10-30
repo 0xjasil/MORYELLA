@@ -3,111 +3,216 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import Button from "@/components/Button";
 import { products } from "@/components/ProductGrid";
+import { useCart } from "@/context/CartContext";
+import { useWishlist } from "@/context/WishlistContext";
 
 export default function ProductDetail() {
   const router = useRouter();
   const { id } = router.query;
-  const [added, setAdded] = useState(false);
+  const [qty, setQty] = useState(1);
+  const [flash, setFlash] = useState(false);
 
-  const product = products.find((p) => p.id === id) || products[0];
+  const { addItem, items } = useCart();
+  const { isWishlisted, toggleWishlist } = useWishlist();
+
+  const product = products.find(p => p.id === id) ?? products[0];
+  if (!product) return null;
+
+  const inCart     = items.some(i => i.product.id === product.id);
+  const wishlisted = isWishlisted(product.id);
 
   const handleAddToCart = () => {
-    setAdded(true);
-    setTimeout(() => setAdded(false), 2500);
+    for (let i = 0; i < qty; i++) addItem(product);
+    setFlash(true);
+    setTimeout(() => setFlash(false), 2500);
   };
 
   return (
-    <main>
+    <>
       <Header />
-      <div className="mx-auto max-w-7xl px-[var(--space-6)] py-[var(--space-8)]">
-        <nav className="mb-[var(--space-4)] text-xs text-[var(--color-text-secondary)]">
-          <Link href="/" className="hover:underline">Home</Link> &gt;{" "}
-          <Link href={`/category/${product.category}`} className="capitalize hover:underline">
-            {product.category}
-          </Link>{" "}
-          &gt; <span>{product.name}</span>
-        </nav>
+      <main id="main-content" className="min-h-screen bg-[#F4F4F4]">
+        <div className="mx-auto max-w-content px-4 md:px-6 py-4">
 
-        <div className="grid grid-cols-1 gap-[var(--space-8)] lg:grid-cols-2">
-          {/* Image */}
-          <div className="flex items-center justify-center overflow-hidden rounded-[var(--radius-lg)] bg-white p-8 shadow-[var(--shadow-md)]">
-            <img
-              src={product.image}
-              alt={product.name}
-              className="max-h-[460px] w-auto object-contain"
-            />
-          </div>
+          {/* Breadcrumb */}
+          <nav aria-label="Breadcrumb" className="mb-4">
+            <ol className="flex items-center gap-1.5 text-xs text-[#595E63]" role="list">
+              <li role="listitem">
+                <Link href="/" className="hover:text-[#E80071] hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#E80071] rounded">
+                  Home
+                </Link>
+              </li>
+              <li role="listitem" aria-hidden="true">/</li>
+              <li role="listitem">
+                <Link
+                  href={`/category/${product.category}`}
+                  className="capitalize hover:text-[#E80071] hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#E80071] rounded"
+                >
+                  {product.category}
+                </Link>
+              </li>
+              <li role="listitem" aria-hidden="true">/</li>
+              <li role="listitem" className="text-[#000000] font-medium truncate max-w-[200px]" aria-current="page">
+                {product.name}
+              </li>
+            </ol>
+          </nav>
 
-          {/* Details */}
-          <div className="flex flex-col gap-[var(--space-6)]">
-            <div className="flex items-center gap-3">
-              {product.badge && (
-                <span className="inline-block rounded-full bg-[var(--color-accent)] px-[var(--space-3)] py-[var(--space-1)] text-xs font-semibold text-white">
-                  {product.badge}
-                </span>
-              )}
-              <span className="text-xs font-bold uppercase text-[var(--color-text-secondary)]">
-                {product.brand}
-              </span>
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-[420px_1fr]">
+
+            {/* ── Image ───────────────────────────────────── */}
+            <div className="bg-white rounded-lg border border-[#CDD3D8] p-6 flex items-center justify-center aspect-square md:aspect-auto md:min-h-[400px]">
+              <img
+                src={product.image}
+                alt={product.name}
+                width={420}
+                height={420}
+                loading="eager"
+                fetchPriority="high"
+                className="max-h-[380px] w-auto object-contain"
+              />
             </div>
 
-            <h1
-              className="text-2xl md:text-3xl font-bold text-[var(--color-text-primary)]"
-              style={{ lineHeight: "var(--leading-6xl)" }}
-            >
-              {product.name}
-            </h1>
+            {/* ── Details ─────────────────────────────────── */}
+            <div className="bg-white rounded-lg border border-[#CDD3D8] p-5 flex flex-col gap-4">
 
-            <div className="flex items-center gap-[var(--space-2)]">
-              <span className="text-[var(--color-accent)]">★</span>
-              <span className="text-sm font-medium text-[var(--color-text-secondary)]">
-                {product.rating} ({product.reviewCount.toLocaleString()} verified ratings)
-              </span>
-            </div>
-
-            <div className="flex items-center gap-[var(--space-3)]">
-              <span className="text-3xl font-bold text-[var(--color-text-primary)]">
-                ₹{product.price.toLocaleString()}
-              </span>
-              {product.originalPrice && (
-                <span className="text-lg text-[var(--color-text-secondary)] line-through">
-                  ₹{product.originalPrice.toLocaleString()}
+              {/* Brand + badge */}
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-semibold text-[#595E63] uppercase tracking-wider">
+                  {product.brand}
                 </span>
-              )}
-              {product.discount && (
-                <span className="rounded bg-[var(--color-surface-warm)] px-[var(--space-2)] py-[var(--space-1)] text-sm font-semibold text-[var(--color-accent)]">
-                  {product.discount}% OFF
+                {product.badge && (
+                  <span className="bg-[#000000] text-white text-[10px] font-semibold px-1.5 py-0.5 rounded-sm">
+                    {product.badge}
+                  </span>
+                )}
+              </div>
+
+              {/* Name */}
+              <h1 className="text-lg font-semibold text-[#000000] leading-snug">
+                {product.name}
+              </h1>
+
+              {/* Rating */}
+              <div className="flex items-center gap-2">
+                <span
+                  className="flex items-center gap-0.5 bg-[#E80071] text-white text-xs font-semibold px-1.5 py-0.5 rounded-sm"
+                  aria-label={`${product.rating} out of 5 stars`}
+                >
+                  {product.rating}
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                  </svg>
                 </span>
-              )}
-            </div>
+                <span className="text-xs text-[#6F7981]">
+                  {product.reviewCount.toLocaleString()} ratings
+                </span>
+              </div>
 
-            <p
-              className="text-base text-[var(--color-text-secondary)] leading-relaxed"
-            >
-              Experience authentic luxury with <strong>{product.brand}</strong>. Formulated for everyday brilliance, premium quality ingredients, and unmatched customer satisfaction exclusively curated at MORYELLE.
-            </p>
+              {/* Price */}
+              <div className="flex items-baseline gap-2.5 border-t border-[#F4F4F4] pt-3">
+                <span className="text-2xl font-semibold text-[#000000]">
+                  ₹{product.price.toLocaleString()}
+                </span>
+                {product.originalPrice && (
+                  <span className="text-sm text-[#6F7981] line-through">
+                    ₹{product.originalPrice.toLocaleString()}
+                  </span>
+                )}
+                {product.discount && (
+                  <span className="text-sm font-semibold text-[#E80071]">
+                    {product.discount}% Off
+                  </span>
+                )}
+              </div>
 
-            <div className="flex gap-[var(--space-4)]">
-              <Button
-                variant="primary"
-                size="lg"
-                className="flex-1"
-                onClick={handleAddToCart}
-              >
-                {added ? "✓ Added to Bag!" : "Add to Bag"}
-              </Button>
-              <Link href="/cart" className="flex-1">
-                <Button variant="outline" size="lg" className="w-full">
+              {/* Description */}
+              <p className="text-sm text-[#595E63] leading-relaxed">
+                Experience authentic luxury with{" "}
+                <strong className="text-[#000000]">{product.brand}</strong>.
+                Premium quality formulation, dermatologist-tested and exclusively curated for MORYELLE.
+              </p>
+
+              {/* Qty + CTAs */}
+              <div className="flex flex-col gap-3 pt-1">
+
+                {/* Quantity selector */}
+                <div className="flex items-center gap-3">
+                  <span className="text-xs font-medium text-[#595E63]">Qty:</span>
+                  <div
+                    className="flex items-center border border-[#CDD3D8] rounded-sm overflow-hidden"
+                    role="group"
+                    aria-label="Select quantity"
+                  >
+                    <button
+                      type="button"
+                      aria-label="Decrease quantity"
+                      onClick={() => setQty(v => Math.max(1, v - 1))}
+                      className="px-3 py-1.5 text-sm font-bold text-[#000000] hover:bg-[#F4F4F4] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#E80071]"
+                    >
+                      −
+                    </button>
+                    <span className="px-3 py-1.5 text-sm font-semibold text-[#000000] border-x border-[#CDD3D8] min-w-[32px] text-center">
+                      {qty}
+                    </span>
+                    <button
+                      type="button"
+                      aria-label="Increase quantity"
+                      onClick={() => setQty(v => v + 1)}
+                      className="px-3 py-1.5 text-sm font-bold text-[#000000] hover:bg-[#F4F4F4] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#E80071]"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+
+                {/* Add to bag + wishlist */}
+                <div className="flex gap-2">
+                  <button
+                    type="button"
+                    aria-label={flash ? "Added to bag" : "Add to bag"}
+                    onClick={handleAddToCart}
+                    className={`flex-1 py-2.5 text-sm font-semibold rounded-md border transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#E80071] ${
+                      flash || inCart
+                        ? "bg-green-600 border-green-600 text-white"
+                        : "bg-[#E80071] border-[#E80071] text-white hover:opacity-90"
+                    }`}
+                  >
+                    {flash ? "✓ Added to Bag!" : inCart ? "✓ In Your Bag" : "Add to Bag"}
+                  </button>
+
+                  <button
+                    type="button"
+                    aria-label={wishlisted ? "Remove from wishlist" : "Add to wishlist"}
+                    aria-pressed={wishlisted}
+                    onClick={() => toggleWishlist(product)}
+                    className={`px-3 py-2.5 rounded-md border text-sm transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#E80071] ${
+                      wishlisted
+                        ? "border-[#E80071] bg-[#FFF0F5] text-[#E80071]"
+                        : "border-[#CDD3D8] text-[#595E63] hover:border-[#E80071] hover:text-[#E80071]"
+                    }`}
+                  >
+                    {wishlisted ? "♥" : "♡"}
+                  </button>
+                </div>
+
+                <Link
+                  href="/cart"
+                  className="block w-full text-center py-2.5 text-sm font-semibold rounded-md border border-[#E80071] text-[#E80071] hover:bg-[#E80071] hover:text-white transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#E80071]"
+                >
                   Go to Bag
-                </Button>
-              </Link>
+                </Link>
+              </div>
+
+              {/* Screen reader live region */}
+              <span aria-live="polite" aria-atomic="true" className="sr-only">
+                {flash ? `${qty} × ${product.name} added to bag` : ""}
+              </span>
             </div>
           </div>
         </div>
-      </div>
+      </main>
       <Footer />
-    </main>
+    </>
   );
 }

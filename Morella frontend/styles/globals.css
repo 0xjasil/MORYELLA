@@ -2,137 +2,81 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── Utilities ──────────────────────────────────────────────── */
 @layer utilities {
-  .no-scrollbar::-webkit-scrollbar {
-    display: none;
-  }
-  .no-scrollbar {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 }
 
+/* ── DESIGN TOKENS (SKILL.md — moryelle/nykaa) ─────────────── */
 :root {
-  /* Nykaa Colors from analysis */
-  --color-1: #000000;
-  --color-2: #0000EE;
-  --color-3: #595E63;
-  --color-4: #E80071;
-  --color-5: #006DFF;
-  --color-6: #3F65D9;
-  --color-7: #979797;
-  --color-8: #FC8FED;
-  --color-9: #FBF0EA;
-  --color-10: #F3F3F3;
-  --color-11: #F4F4F4;
-  --color-12: #FFFFFF;
-
-  /* Semantic color roles */
-  --color-bg: var(--color-12);
-  --color-bg-white: var(--color-12);
-  --color-surface: var(--color-10);
-  --color-surface-warm: var(--color-9);
-  --color-text-primary: var(--color-1);
-  --color-text-link: var(--color-2);
-  --color-text-secondary: var(--color-3);
-  --color-accent: var(--color-4);
-  --color-border: var(--color-7);
-  --color-bg-dark: var(--color-1);
+  /* Core palette */
+  --white:       #ffffff;
+  --surface:     #f4f4f4;
+  --text:        #000000;
+  --muted:       #595e63;
+  --accent:      #e80071;
+  --link:        #0000ee;
+  --border:      #cdd3d8;
+  --border-lite: #e8e8e8;
+  --dim:         #6f7981;
+  --blue-bg:     #e0f7ff;
+  --pink-bg:     #fde8f0;
+  --green-rate:  #388e3c;
+  --sale-bg:     #fff3cd;
 
   /* Typography */
-  --font-stack: "Inter", "Source Sans Pro", "Times New Roman", sans-serif;
+  --font: "Inter", "Source Sans Pro", system-ui, sans-serif;
 
-  /* Text sizes */
-  --text-xs: 10px;
-  --text-sm: 14px;
-  --text-base: 16px;
-  --text-lg: 24px;
-  --text-xl: 24px;
-
-  /* Font weights */
-  --weight-regular: 400;
-  --weight-medium: 500;
-  --weight-semi: 600;
-
-  /* Line heights */
-  --leading-xs: 14px;
-  --leading-sm: 16.1px;
-  --leading-base: 16.8px;
-  --leading-md: 18.4px;
-  --leading-lg: 20px;
-  --leading-xl: 23px;
-  --leading-2xl: 40px;
-  --leading-3xl: 47px;
-  --leading-4xl: 50px;
-  --leading-5xl: 62px;
-
-  /* Spacing (base unit 4px) */
-  --space-1: 1px;
-  --space-2: 2px;
-  --space-3: 4px;
-  --space-4: 5px;
-  --space-5: 8px;
-  --space-6: 10px;
-  --space-7: 11px;
-  --space-8: 12px;
-  --space-9: 13px;
-  --space-10: 14px;
-  --space-11: 15px;
-  --space-12: 16px;
-  --space-13: 18px;
-  --space-14: 20px;
-  --space-15: 24px;
-  --space-16: 35px;
-  --space-17: 48px;
-
-  /* Border radius - sharp edges like Nykaa */
-  --radius-sm: 2px;
-  --radius-md: 4px;
-  --radius-lg: 4px;
-  --radius-xl: 4px;
-
-  /* Elevation */
-  --shadow-sm: rgba(0, 0, 0, 0.1) 0px 1px 1px 0px;
-  --shadow-md: rgba(0, 0, 0, 0.1) 0px 2px 3px 0px;
-  --shadow-lg: rgba(0, 0, 0, 0.1) 0px 1px 10px 0px;
-  --shadow-xl: rgba(0, 0, 0, 0.1) 0px 1px 10px 0px;
+  /* Shadows (SKILL.md) */
+  --shadow-sm: rgba(0,0,0,0.1) 0px 1px 10px 0px;
+  --shadow-md: rgba(0,0,0,0.15) 0px 2px 16px 0px;
 
   /* Motion */
-  --duration-base: 0.2s ease-in-out;
-  --duration-base-ease: 0.3s ease-in-out;
-  --duration-slow: transform 0.5s;
+  --ease: 0.2s ease-out;
 }
 
-* {
-  box-sizing: border-box;
-}
-
+/* ── Reset ──────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 body {
   margin: 0;
-  font-family: var(--font-stack);
-  background-color: var(--color-bg);
-  color: var(--color-text-primary);
-  line-height: var(--leading-base);
+  font-family: var(--font);
+  font-size: 14px;
+  line-height: 1.4;
+  background: var(--surface);
+  color: var(--text);
   -webkit-font-smoothing: antialiased;
 }
+a { color: inherit; text-decoration: none; }
+button { font-family: var(--font); cursor: pointer; border: none; background: none; padding: 0; }
+img { max-width: 100%; display: block; }
+a, button, [role="button"] { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
 
-a {
-  color: var(--color-text-link);
-  text-decoration: none;
+/* ── SR-only ────────────────────────────────────────────────── */
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0;
+  margin: -1px; overflow: hidden; clip: rect(0,0,0,0);
+  white-space: nowrap; border-width: 0;
+}
+.sr-only:focus-visible {
+  position: static; width: auto; height: auto;
+  padding: 4px 8px; margin: 0; overflow: visible;
+  clip: auto; white-space: normal;
 }
 
-a:hover {
-  text-decoration: underline;
+/* ── Nykaa product card — line clamp ───────────────────────── */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
-button {
-  font-family: var(--font-stack);
-  cursor: pointer;
-  border: none;
-  background: none;
-}
-
-img {
-  max-width: 100%;
-  display: block;
+/* ── Reduced motion ─────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
