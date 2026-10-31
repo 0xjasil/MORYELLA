@@ -38,8 +38,8 @@ export default function Home() {
           <Link href="/category/all" className="block w-full">
             <img
               src="/banners/top-promo-banner.jpg"
-              alt="Online Shopping New Arrival - Up to 70% Off"
-              className="w-full h-36 sm:h-48 md:h-60 lg:h-72 object-cover object-center"
+              alt="Moryelle Beauté — Online Shopping New Arrivals Up to 70% Off"
+              className="w-full h-auto max-h-[460px] object-cover object-center"
             />
           </Link>
         </div>
